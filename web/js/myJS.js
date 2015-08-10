@@ -9,8 +9,7 @@ function LoadConfiguration()
     $.ajaxSetup({
         headers:{
             "X-Auth" : "1234"
-        },
-		dataType:"JSON"
+        }
     });
 };
 
