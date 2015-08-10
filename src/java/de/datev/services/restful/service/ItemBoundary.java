@@ -51,6 +51,6 @@ public class ItemBoundary {
         String preis = jsonData.getString("preis");
         String gekauft = jsonData.getString("gekauft");
         String erlediger = jsonData.getString("erlediger");
-        ItemController.CreateList(id, name, einkaufsdatum, preis, gekauft, erlediger);
+        ItemController.updateItem(id, name, einkaufsdatum, preis, gekauft, erlediger);
     }
 }
