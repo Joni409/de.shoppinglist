@@ -42,6 +42,9 @@ public class ShoppingListCollectionBoundary {
     public void CreateList(String json) throws JSONException
     {
         JSONObject jsonData = new JSONObject(json);
-        //ShoppingListController.CreateList();
+        String name = jsonData.getString("name");
+        String beschreibung = jsonData.getString("beschreibung");
+        String color = jsonData.getString("color");
+        ShoppingListController.CreateList(name, beschreibung, color);
     }
 }
