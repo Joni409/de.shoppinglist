@@ -130,25 +130,20 @@ function LoadIndex()
 
 function CheckItemDate()
 {
-    alert();
     CurrentDate = new Date();
     var Counter = 0;
 
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list){
         $.each(list, function(i, field){
-            alert("1");
             $.each(field.items, function(x, item)
             {
-                alert("2");
                 var ItemAlert = false;
-                alert("2.1");
-                alert(item.date);
-                var felder = item.date.split('-', 3);
-                alert("2.5");
+                var felder = item.einkaufsdatum.split('-', 3);
+                
                 var ItemMonth = parseInt(felder[1]);
                 var ItemDay = parseInt(felder[2].split(' ', 1));
                 var ItemYear = parseInt(felder[0]);
-                alert("3");
+
                 var LatestMonth = parseInt(CurrentDate.getMonth() + 1);
                 var LatestDay = parseInt(CurrentDate.getDate());
                 var LatestYear = parseInt(CurrentDate.getFullYear());
@@ -165,17 +160,15 @@ function CheckItemDate()
                 {
                     ItemAlert = true;
                 }
-                alert();
+
                 if (ItemAlert)
                 {
                     Counter = Counter + 1;
-                    alert("Item: '" +  item.name + "' ist älter als zwei Tage");
                     var newItem =   "<li><a href=\"#\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
                     $("#Erinnerungen").append(newItem);
                     $("#ErinnerungCount").empty();
                     $("#ErinnerungCount").append(Counter);
                 }
-                alert();
             });
         });
     });
