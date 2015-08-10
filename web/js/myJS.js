@@ -37,17 +37,16 @@ $("#AddItemButton").click(function()
     }
     
     //Neues Element an den Server senden und dann neu laden
-    //AddItemToListContainer(name, description, choosedColor);
     
-    CreateNewServerList("Test");
+    CreateNewServerList(name, description, choosedColor);
 });
 
-function CreateNewServerList(data)
+function CreateNewServerList(name, beschreibung, color)
 {
     $.ajax({
     url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
     type: "POST",
-    data: "{\"Test\":\"Test\"}",
+    data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
     contentType: "application/json"
 });
 }

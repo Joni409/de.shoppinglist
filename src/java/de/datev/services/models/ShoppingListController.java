@@ -61,8 +61,8 @@ public class ShoppingListController {
         return result;
     }
     
-    public static void CreateList(String[] data)
+    public static void CreateList(String name, String beschreibung, String color)
     {
-        Sql.insert("shoppinglist", new String[]{data[0], data[1], data[2]});
+        Sql.insert("shoppinglist", new String[]{"", name, beschreibung, color});
     }
 }
