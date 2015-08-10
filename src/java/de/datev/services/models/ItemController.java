@@ -48,16 +48,11 @@ public class ItemController {
         return result;
     }
     
-    public static void CreateList(String id, String name, String einkaufsdatum, String preis, String gekauft, String erlediger) {
+    public static void updateItem(String id, String name, String einkaufsdatum, String preis, String gekauft, String erlediger) {
         Sql.update("item", new String[]{"item_name_nn","item_createDate", "item_preis", "item_gekauft"}, new String[]{name, einkaufsdatum, preis, gekauft}, "item_id_pk", id);
     }
-    
-    public static void CreateList(String name, String beschreibung, String color)
-    {
-        Sql.insert("shoppinglist", new String[]{"", name, beschreibung, color});
+
+    public static void createItem(String name, String einkaufsdatum, String preis, String gekauft, String erlediger) {
+        Sql.insert("item", new String[]{"", name, "1", einkaufsdatum, preis, gekauft, "1"});
     }
-
-    
-
-    
 }
