@@ -35,3 +35,8 @@ button, button:focus, button:active,
 input::-moz-focus-inner {
     border: 0;
 }
+
+#ErinnerungCount{
+    margin-top: -15px;
+    background: red;
+}
