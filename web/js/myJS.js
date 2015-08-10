@@ -9,7 +9,7 @@ function LoadConfiguration()
     $.ajaxSetup({
         headers:{
             "X-Auth" : "1234"
-        }       
+        }
     });
 };
 
@@ -117,7 +117,7 @@ function AddElementsToListTable(id, name)
 function LoadListTable(id)
 {
     $("#MainContainer").empty();
-    $("#MainContainer").load("pages\\itemList.html");
+    $("#MainContainer").load("pages/itemList.html");
     LoadSpecificServerList(id);
 };
 

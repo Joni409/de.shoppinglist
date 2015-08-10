@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,12 +33,24 @@ public class ItemBoundary {
     
     @POST
     @Consumes({"application/json"})
-    public void CreateList(String json) throws JSONException
+    public void CreateItem(String json) throws JSONException
     {
         /*JSONObject jsonData = new JSONObject(json);
         String name = jsonData.getString("name");
         String beschreibung = jsonData.getString("beschreibung");
         String color = jsonData.getString("color");
         ShoppingListController.CreateList(name, beschreibung, color);*/
+    }
+    
+    @PUT
+    @Consumes({"application/json"})
+    public void UpdateItem(String json, @PathParam("ItemID") String id) throws JSONException{
+        JSONObject jsonData = new JSONObject(json);
+        String name = jsonData.getString("name");
+        String einkaufsdatum = jsonData.getString("einkaufsdatum");
+        String preis = jsonData.getString("preis");
+        String gekauft = jsonData.getString("gekauft");
+        String erlediger = jsonData.getString("erlediger");
+        ItemController.CreateList(id, name, einkaufsdatum, preis, gekauft, erlediger);
     }
 }
