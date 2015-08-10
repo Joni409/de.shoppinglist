@@ -55,9 +55,6 @@ function CreateNewServerList(name, beschreibung, color)
     $.ajax({
     url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
     type: "POST",
-    headers:{
-        "X-Auth" : "1234"
-    },
     data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
     contentType: "application/json"
 });
@@ -109,6 +106,7 @@ function AddElementsToListTable(id, name)
                             '<td>' + name + '</td>'+
                             '<td>0,00</td>'+
                             '<td></td>'+
+							'<td><a class="btn btn-default glyphiconButton" href="#" data-toggle="modal" data-target="#EditItemModal"><span class="glyphicon glyphicon-cog"></span></a></td>' +
                         '</tr>';
                 
     $("#ElementsOfListTable").append(newTableItem);      
