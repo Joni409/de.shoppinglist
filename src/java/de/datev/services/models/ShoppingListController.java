@@ -2,6 +2,7 @@ package de.datev.services.models;
 
 import static de.datev.services.restful.config.ApplicationConfiguration.Sql;
 import java.lang.reflect.Array;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,8 +26,13 @@ public class ShoppingListController {
                 ResultSet currentItemResult = Sql.select("item", "item_shoppinglist_fk", currentShoppingList.getID() + "");
                 List<ItemModel> items = new ArrayList<>();
                 while(currentItemResult.next()){
-                    ItemModel item = new ItemModel(currentItemResult.getInt("item_id_pk"), currentItemResult.getString("item_name_nn"));
-                    items.add(item);
+                    int i = currentItemResult.getInt("item_id_pk");
+                    String name = currentItemResult.getString("item_name_nn");
+                    String date = currentItemResult.getString("item_createDate");
+                    String preis = currentItemResult.getString("item_preis");
+                    String gekauft = currentItemResult.getString("item_gekauft");
+                    ItemModel currentItem = new ItemModel(i, name, date, preis, gekauft, "Noch nicht implementiert");
+                    items.add(currentItem);
                 }
                 currentShoppingList.setItems(items);
                 
@@ -50,8 +56,8 @@ public class ShoppingListController {
                 ResultSet currentItemResult = Sql.select("item", "item_shoppinglist_fk", result.getID() + "");
                 List<ItemModel> items = new ArrayList<>();
                 while(currentItemResult.next()){
-                    ItemModel item = new ItemModel(currentItemResult.getInt("item_id_pk"), currentItemResult.getString("item_name_nn"));
-                    items.add(item);
+                    ItemModel currentItem = new ItemModel(currentItemResult.getInt("item_id_pk"), currentItemResult.getString("item_name_nn"), currentItemResult.getString("item_createDate"), currentItemResult.getString("item_preis"), currentItemResult.getString("item_gekauft"), "Noch nicht implementiert");
+                    items.add(currentItem);
                 }
                 result.setItems(items);
             }

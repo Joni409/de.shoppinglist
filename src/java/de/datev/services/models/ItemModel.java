@@ -5,6 +5,8 @@
  */
 package de.datev.services.models;
 
+import java.util.Date;
+
 /**
  *
  * @author TG00030
@@ -31,12 +33,56 @@ public class ItemModel {
         this.Name = name;
     }
     
+    private String Einkaufsdatum;
+
+    public String getEinkaufsdatum() {
+        return Einkaufsdatum;
+    }
+    
+    public void setEinkaufsdatum(String einkaufsdatum){
+        this.Einkaufsdatum = einkaufsdatum;
+    }
+    
+    private String Preis;
+
+    public String getPreis() {
+        return Preis;
+    }
+    
+    public void setPreis(String preis){
+        this.Preis = preis;
+    }
+    
+    private String Gekauft;
+
+    public String getGekauft() {
+        return Gekauft;
+    }
+    
+    public void setGekauft(String gekauft){
+        this.Gekauft = gekauft;
+    }
+    
+    private String Erlediger;
+
+    public String getErlediger() {
+        return Erlediger;
+    }
+    
+    public void setErlediger(String erlediger){
+        this.Erlediger = erlediger;
+    }
+    
     public ItemModel(){
         
     }
     
-    public ItemModel(int id, String name){
+    public ItemModel(int id, String name, String einkaufsdatum, String preis, String gekauft, String erlediger){
         this.ID = id;
         this.Name = name;
+        this.Einkaufsdatum = einkaufsdatum;
+        this.Preis = preis;
+        this.Gekauft = gekauft;
+        this.Erlediger = erlediger;
     }
 }
