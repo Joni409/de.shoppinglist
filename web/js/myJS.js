@@ -72,7 +72,7 @@ function LoadAllServerLists()
             AddItemToListContainer(element.id, element.name, element.beschreibung, element.color);
         });
     });
-}
+};
 
 function LoadSpecificServerList(id)
 {
@@ -81,14 +81,14 @@ function LoadSpecificServerList(id)
             AddElementsToListTable(element.id, element.name);
         });
     });
-}
+};
 
 function GenerateRandomColor()
 {
     var colors = ['btn-warning', 'btn-info', 'btn-danger', 'btn-success', 'btn-default', 'btn-primary'];
     var randomNumber = Math.floor(Math.random() * 6);
     return colors[randomNumber];
-}
+};
 
 function AddItemToListContainer(id, name, description, color)
 {
@@ -100,7 +100,7 @@ function AddItemToListContainer(id, name, description, color)
             '</div>';
 
     $("#ListContainer").append(newListItem);
-}
+};
 
 function AddElementsToListTable(id, name)
 {
@@ -112,18 +112,71 @@ function AddElementsToListTable(id, name)
                         '</tr>';
                 
     $("#ElementsOfListTable").append(newTableItem);      
-}
+};
 
 function LoadListTable(id)
 {
     $("#MainContainer").empty();
     $("#MainContainer").load("pages\\itemList.html");
     LoadSpecificServerList(id);
-}
+};
 
 function LoadIndex()
 {
     $("#MainContainer").empty();
     $("#MainContainer").load("index.html #MainContainer > *");
     LoadAllServerLists();
-}
+};
+
+function CheckItemDate()
+{
+    alert();
+    CurrentDate = new Date();
+    var Counter = 0;
+
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list){
+        $.each(list, function(i, field){
+            alert("1");
+            $.each(field.items, function(x, item)
+            {
+                alert("2");
+                var ItemAlert = false;
+                alert("2.1");
+                alert(item.date);
+                var felder = item.date.split('-', 3);
+                alert("2.5");
+                var ItemMonth = parseInt(felder[1]);
+                var ItemDay = parseInt(felder[2].split(' ', 1));
+                var ItemYear = parseInt(felder[0]);
+                alert("3");
+                var LatestMonth = parseInt(CurrentDate.getMonth() + 1);
+                var LatestDay = parseInt(CurrentDate.getDate());
+                var LatestYear = parseInt(CurrentDate.getFullYear());
+
+                if (ItemYear < LatestYear)
+                {
+                    ItemAlert = true;
+                }
+                else if (ItemMonth < LatestMonth)
+                {
+                    ItemAlert = true;
+                }
+                else if (ItemDay < LatestDay - 2)
+                {
+                    ItemAlert = true;
+                }
+                alert();
+                if (ItemAlert)
+                {
+                    Counter = Counter + 1;
+                    alert("Item: '" +  item.name + "' ist älter als zwei Tage");
+                    var newItem =   "<li><a href=\"#\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
+                    $("#Erinnerungen").append(newItem);
+                    $("#ErinnerungCount").empty();
+                    $("#ErinnerungCount").append(Counter);
+                }
+                alert();
+            });
+        });
+    });
+};
