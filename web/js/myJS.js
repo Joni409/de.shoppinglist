@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 
+function LoadConfiguration()
+{
+    $.ajaxSetup({
+        headers:{
+            "X-Auth" : "1234"
+        }       
+    });
+};
+
 $("#ColorRandom").change(function()
 {
     var checked = $("#ColorRandom").prop('checked');
@@ -46,6 +55,9 @@ function CreateNewServerList(name, beschreibung, color)
     $.ajax({
     url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
     type: "POST",
+    headers:{
+        "X-Auth" : "1234"
+    },
     data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
     contentType: "application/json"
 });
@@ -54,7 +66,7 @@ function CreateNewServerList(name, beschreibung, color)
 function LoadAllServerLists()
 {
     $("#ListContainer").empty();
-
+    
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(result){
         $.each(result, function(index, element){
             AddItemToListContainer(element.id, element.name, element.beschreibung, element.color);
