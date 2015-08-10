@@ -36,12 +36,12 @@ public class ShoppingListCollectionBoundary {
         return Response.status(Response.Status.OK).entity(result).build();
     }
     
-    //SONObject myjson = new JSONObject(the_json);#
+    
     @POST
     @Consumes({"application/json"})
     public void CreateList(String json) throws JSONException
     {
         JSONObject jsonData = new JSONObject(json);
-        
+        //ShoppingListController.CreateList();
     }
 }

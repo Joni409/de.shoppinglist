@@ -11,6 +11,6 @@ import javax.ws.rs.core.Application;
 
 public class ApplicationConfiguration extends Application{
     
-    public static MySql Sql = new MySql("127.0.0.1:3306", "root", "", "shoppinglist");
+    public static MySql Sql = new MySql("192.168.1.69:3306", "root", "", "shoppinglist");
     
 }

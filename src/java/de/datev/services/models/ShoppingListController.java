@@ -1,6 +1,7 @@
 package de.datev.services.models;
 
 import static de.datev.services.restful.config.ApplicationConfiguration.Sql;
+import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,5 +59,10 @@ public class ShoppingListController {
 
         }
         return result;
+    }
+    
+    public static void CreateList(String[] data)
+    {
+        Sql.insert("shoppinglist", new String[]{data[0], data[1], data[2]});
     }
 }
