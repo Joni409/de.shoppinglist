@@ -1,43 +1,39 @@
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="page-header myHeader">
+    <a class="btn btn-primary glyphiconButton pull-right" href="#" onclick="LoadIndex()">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+    </a>
+    <h1>Einkaufen</h1>
+</div>
 
-        <link href="../css/bootstrap.min.css" type="text/css" rel="stylesheet">
-        <link href="../css/myStyles.css" type="text/css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="page-header myHeader">
-            <a class="btn btn-primary glyphiconButton pull-right" href="#" onclick="LoadIndex()">
-                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-            </a>
-            <h1>Einkaufen</h1>
-        </div>
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Itemname</th>
+            <th>Preis</th>
+            <th>Fällig am</th>
+        </tr>
+    </thead>
+    <tbody id="ElementsOfListTable">
+        <!-- Alle Elemente einer Liste werden hier generiert -->
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>Gesamt</th>
+            <th>0,00</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+       
+<script>
+   $( document ).ready(function() {
 
-        <table class="table table-responsive table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Itemname</th>
-                    <th>Preis</th>
-                    <th>Fällig am</th>
-                </tr>
-            </thead>
-            <tbody id="ElementsOfListTable">
-                <!-- Alle Elemente einer Liste werden hier generiert -->
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th>Gesamt</th>
-                    <th>0,00</th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
-        <script src="../js/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/myJS.js"></script>   
-    </body>
-</html>
+LoadSpecificServerList(window.currentid);
+
+});
+
+
+</script>
+

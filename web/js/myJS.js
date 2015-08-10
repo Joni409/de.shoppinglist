@@ -116,9 +116,11 @@ function AddElementsToListTable(id, name)
 
 function LoadListTable(id)
 {
+    window.currentid = id;
     $("#MainContainer").empty();
-    $("#MainContainer").load("pages/itemList.html");
-    LoadSpecificServerList(id);
+    $("#MainContainer").load("pages/itemList.html",  LoadSpecificServerList(id));
+    
+   
 }
 
 function LoadIndex()
