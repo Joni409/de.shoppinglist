@@ -9,7 +9,7 @@ function LoadConfiguration()
     $.ajaxSetup({
         headers:{
             "X-Auth" : "1234"
-        }       
+        }
     });
 };
 
@@ -55,9 +55,6 @@ function CreateNewServerList(name, beschreibung, color)
     $.ajax({
     url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
     type: "POST",
-    headers:{
-        "X-Auth" : "1234"
-    },
     data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
     contentType: "application/json"
 });
@@ -72,7 +69,7 @@ function LoadAllServerLists()
             AddItemToListContainer(element.id, element.name, element.beschreibung, element.color);
         });
     });
-}
+};
 
 function LoadSpecificServerList(id)
 {
@@ -81,14 +78,14 @@ function LoadSpecificServerList(id)
             AddElementsToListTable(element.id, element.name);
         });
     });
-}
+};
 
 function GenerateRandomColor()
 {
     var colors = ['btn-warning', 'btn-info', 'btn-danger', 'btn-success', 'btn-default', 'btn-primary'];
     var randomNumber = Math.floor(Math.random() * 6);
     return colors[randomNumber];
-}
+};
 
 function AddItemToListContainer(id, name, description, color)
 {
@@ -100,7 +97,7 @@ function AddItemToListContainer(id, name, description, color)
             '</div>';
 
     $("#ListContainer").append(newListItem);
-}
+};
 
 function AddElementsToListTable(id, name)
 {
@@ -109,21 +106,68 @@ function AddElementsToListTable(id, name)
                             '<td>' + name + '</td>'+
                             '<td>0,00</td>'+
                             '<td></td>'+
+							'<td><a class="btn btn-default glyphiconButton" href="#" data-toggle="modal" data-target="#EditItemModal"><span class="glyphicon glyphicon-cog"></span></a></td>' +
                         '</tr>';
                 
     $("#ElementsOfListTable").append(newTableItem);      
-}
+};
 
 function LoadListTable(id)
 {
     $("#MainContainer").empty();
-    $("#MainContainer").load("pages\\itemList.html");
+    $("#MainContainer").load("pages/itemList.html");
     LoadSpecificServerList(id);
-}
+};
 
 function LoadIndex()
 {
     $("#MainContainer").empty();
     $("#MainContainer").load("index.html #MainContainer > *");
     LoadAllServerLists();
-}
+};
+
+function CheckItemDate()
+{
+    CurrentDate = new Date();
+    var Counter = 0;
+
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list){
+        $.each(list, function(i, field){
+            $.each(field.items, function(x, item)
+            {
+                var ItemAlert = false;
+                var felder = item.einkaufsdatum.split('-', 3);
+                
+                var ItemMonth = parseInt(felder[1]);
+                var ItemDay = parseInt(felder[2].split(' ', 1));
+                var ItemYear = parseInt(felder[0]);
+
+                var LatestMonth = parseInt(CurrentDate.getMonth() + 1);
+                var LatestDay = parseInt(CurrentDate.getDate());
+                var LatestYear = parseInt(CurrentDate.getFullYear());
+
+                if (ItemYear < LatestYear)
+                {
+                    ItemAlert = true;
+                }
+                else if (ItemMonth < LatestMonth)
+                {
+                    ItemAlert = true;
+                }
+                else if (ItemDay < LatestDay - 2)
+                {
+                    ItemAlert = true;
+                }
+
+                if (ItemAlert)
+                {
+                    Counter = Counter + 1;
+                    var newItem =   "<li><a href=\"#\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
+                    $("#Erinnerungen").append(newItem);
+                    $("#ErinnerungCount").empty();
+                    $("#ErinnerungCount").append(Counter);
+                }
+            });
+        });
+    });
+};

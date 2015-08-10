@@ -9,10 +9,13 @@
     </head>
     <body>
         <div class="page-header myHeader">
-            <a class="btn btn-primary glyphiconButton pull-right" href="#" onclick="LoadIndex()">
+            <h1>Einkaufen</h1>
+			<a class="btn btn-primary glyphiconButton pull-right" href="#" onclick="LoadIndex()">
                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
             </a>
-            <h1>Einkaufen</h1>
+			<!--<a class="btn btn-primary glyphiconButton pull-right" href="#" data-toggle="modal" data-target="#EditListModal">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>-->
         </div>
 
         <table class="table table-responsive table-hover">
@@ -22,6 +25,7 @@
                     <th>Itemname</th>
                     <th>Preis</th>
                     <th>Fällig am</th>
+					<th></th>
                 </tr>
             </thead>
             <tbody id="ElementsOfListTable">
@@ -33,9 +37,50 @@
                     <th>Gesamt</th>
                     <th>0,00</th>
                     <th></th>
+					<th></th>
                 </tr>
             </tfoot>
         </table>
+		
+		
+		<div class="modal fade" id="EditListModal" tabindex="-1" role="dialog" aria-labelledby="EditListModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="EditListModalLabel">Liste bearbeiten</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                        <button id="EditListButton" type="button" class="btn btn-primary" data-dismiss="modal">Liste speichern</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		
+		<div class="modal fade" id="EditItemModal" tabindex="-1" role="dialog" aria-labelledby="EditItemModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="EditItemModalLabel">Eintrag bearbeiten</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                        <button id="EditItemButton" type="button" class="btn btn-primary" data-dismiss="modal">Eintrag speichern</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/myJS.js"></script>   
