@@ -20,9 +20,9 @@ public class ItemController {
         try {
             ResultSet rs = Sql.select("item", "item_shoppinglist_fk", listId);
             while (rs.next()) {
-                ItemModel currentShoppingList = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"));
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert");
                 
-                result.add(currentShoppingList);
+                result.add(currentItem);
             }
         } catch (SQLException e) {
 
@@ -36,8 +36,8 @@ public class ItemController {
         try {
             ResultSet rs = Sql.select("item", "item_id_pk", itemId);
             while (rs.next()) {
-                ItemModel currentShoppingList = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"));
-                result = currentShoppingList;
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert");
+                result = currentItem;
             }
         } catch (SQLException e) {
 
@@ -48,10 +48,16 @@ public class ItemController {
         return result;
     }
     
+    public static void CreateList(String id, String name, String einkaufsdatum, String preis, String gekauft, String erlediger) {
+        Sql.update("item", new String[]{"item_name_nn","item_createDate", "item_preis", "item_gekauft"}, new String[]{name, einkaufsdatum, preis, gekauft}, "item_id_pk", id);
+    }
+    
     public static void CreateList(String name, String beschreibung, String color)
     {
         Sql.insert("shoppinglist", new String[]{"", name, beschreibung, color});
     }
+
+    
 
     
 }
