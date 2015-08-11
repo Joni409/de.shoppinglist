@@ -7,11 +7,12 @@
 function LoadConfiguration()
 {
     $.ajaxSetup({
-        headers:{
-            "X-Auth" : "1234"
+        headers: {
+            "X-Auth": "1234"
         }
     });
-};
+}
+;
 
 $("#ColorRandom").change(function()
 {
@@ -44,66 +45,70 @@ $("#AddItemButton").click(function()
     {
         choosedColor = $("#ColorSelection").val();
     }
-    
+
     //Neues Element an den Server senden und dann neu laden
-    
+
     CreateNewServerList(name, description, choosedColor);
 });
 
 function CreateNewServerList(name, beschreibung, color)
 {
     $.ajax({
-    url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
-    type: "POST",
-    data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
-    contentType: "application/json"
-});
+        url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
+        type: "POST",
+        data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
+        contentType: "application/json"
+    });
 }
 
 function LoadAllServerLists()
 {
     $("#ListContainer").empty();
-    
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(result){
-        $.each(result, function(index, element){
+
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(result) {
+        $.each(result, function(index, element) {
             AddItemToListContainer(element.id, element.name, element.beschreibung, element.color);
         });
     });
-};
+}
+;
 
 function LoadSpecificServerList(id)
 {
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
         $(document).ready(function() {
-            $("#ListeHeadline").text(result.name); 
-            $.each(result.items, function(index, element){
+            $("#ListeHeadline").text(result.name);
+            $.each(result.items, function(index, element) {
                 AddElementsToListTable(element.id, element.name);
             });
         });
     });
-};
+}
+;
 
 function ctc(id)
 {
     alert();
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
-            var text = "";
-            text = result.name + " "; 
-            alert(text);
-            $.each(result.items, function(index, element){
-               text = text + element.id + element.name;
-               
-            });
-            alert(text);
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
+        var text = "";
+        text = result.name + " \r\n ";
+        text += "--------- \r\n";
+        $.each(result.items, function(index, element) {
+            text = text + element.name + "\r\n";
+        });
+        window.clipboardData.setData('Text', text);    
+        alert("Deine Einkaufsliste ist nun in deiner Zwischenablage");
 
     });
-};
+}
+;
 function GenerateRandomColor()
 {
     var colors = ['btn-warning', 'btn-info', 'btn-danger', 'btn-success', 'btn-default', 'btn-primary'];
     var randomNumber = Math.floor(Math.random() * 6);
     return colors[randomNumber];
-};
+}
+;
 
 function AddItemToListContainer(id, name, description, color)
 {
@@ -115,20 +120,22 @@ function AddItemToListContainer(id, name, description, color)
             '</div>';
 
     $("#ListContainer").append(newListItem);
-};
+}
+;
 
 function AddElementsToListTable(id, name)
 {
-    var newTableItem =  '<tr>'+
-                            '<td>' + id + '</td>'+
-                            '<td>' + name + '</td>'+
-                            '<td>0,00</td>'+
-                            '<td></td>'+
-							'<td><a class="btn btn-default glyphiconButton" href="#" data-toggle="modal" data-target="#EditItemModal"><span class="glyphicon glyphicon-cog"></span></a></td>' +
-                        '</tr>';
-                
-    $("#ElementsOfListTable").append(newTableItem);      
-};
+    var newTableItem = '<tr>' +
+            '<td>' + id + '</td>' +
+            '<td>' + name + '</td>' +
+            '<td>0,00</td>' +
+            '<td></td>' +
+            '<td><a class="btn btn-default glyphiconButton" href="#" data-toggle="modal" data-target="#EditItemModal"><span class="glyphicon glyphicon-cog"></span></a></td>' +
+            '</tr>';
+
+    $("#ElementsOfListTable").append(newTableItem);
+}
+;
 
 function LoadListTable(id)
 {
@@ -136,29 +143,30 @@ function LoadListTable(id)
     $("#MainContainer").empty();
     $("#MainContainer").load("pages/itemList.html", function() {
         LoadSpecificServerList(id);
-    });   
+    });
 }
 
 function LoadIndex()
 {
     $("#MainContainer").empty();
-    $("#MainContainer").load("index.html #MainContainer > *", function(){
+    $("#MainContainer").load("index.html #MainContainer > *", function() {
         LoadAllServerLists();
     });
-};
+}
+;
 
 function CheckItemDate()
 {
     CurrentDate = new Date();
     var Counter = 0;
 
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list){
-        $.each(list, function(i, field){
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list) {
+        $.each(list, function(i, field) {
             $.each(field.items, function(x, item)
             {
                 var ItemAlert = false;
                 var felder = item.einkaufsdatum.split('-', 3);
-                
+
                 var ItemMonth = parseInt(felder[1]);
                 var ItemDay = parseInt(felder[2].split(' ', 1));
                 var ItemYear = parseInt(felder[0]);
@@ -183,7 +191,7 @@ function CheckItemDate()
                 if (ItemAlert && item.gekauft === "0")
                 {
                     Counter = Counter + 1;
-                    var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
+                    var newItem = "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" + item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
                     $("#Erinnerungen").append(newItem);
                     $("#ErinnerungCount").empty();
                     $("#ErinnerungCount").append(Counter);
@@ -191,4 +199,5 @@ function CheckItemDate()
             });
         });
     });
-};
+}
+;
