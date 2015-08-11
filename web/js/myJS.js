@@ -7,11 +7,12 @@
 function LoadConfiguration()
 {
     $.ajaxSetup({
-        headers:{
-            "X-Auth" : "1234"
-        }       
+        headers: {
+            "X-Auth": "1234"
+        }
     });
-};
+}
+;
 
 $("#ColorRandom").change(function()
 {
@@ -44,9 +45,9 @@ $("#AddItemButton").click(function()
     {
         choosedColor = $("#ColorSelection").val();
     }
-    
+
     //Neues Element an den Server senden und dann neu laden
-    
+
     CreateNewServerList(name, description, choosedColor);
 });
 
@@ -55,8 +56,8 @@ function CreateNewServerList(name, beschreibung, color)
     $.ajax({
         url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
         type: "POST",
-        headers:{
-            "X-Auth" : "1234"
+        headers: {
+            "X-Auth": "1234"
         },
         data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
         contentType: "application/json"
@@ -66,9 +67,9 @@ function CreateNewServerList(name, beschreibung, color)
 function LoadAllServerLists()
 {
     $("#ListContainer").empty();
-    
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(result){
-        $.each(result, function(index, element){
+
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(result) {
+        $.each(result, function(index, element) {
             AddItemToListContainer(element.id, element.name, element.beschreibung, element.color);
         });
     });
@@ -76,10 +77,10 @@ function LoadAllServerLists()
 
 function LoadSpecificServerList(id)
 {
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
-        $(document).ready(function(){
-            $("#ListeHeadline").text(result.name); 
-            $.each(result.items, function(index, element){
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
+        $(document).ready(function() {
+            $("#ListeHeadline").text(result.name);
+            $.each(result.items, function(index, element) {
                 AddElementsToListTable(element.id, element.name, id);
             });
         });
@@ -107,23 +108,23 @@ function AddItemToListContainer(id, name, description, color)
 
 function AddElementsToListTable(id, name, parentID)
 {
-    var newTableItem =  '<tr>'+
-                            '<td><input type="checkbox" onchange="UpdateListDataOnServer('+id+','+parentID+')"></td>'+
-                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')">' +name+ '</div></td>'+
-                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')">0,00</div></td>'+ 
-                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')"></div></td>'+
-                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')"></div></td>'+
-                        '</tr>';
-                
+    var newTableItem = '<tr>' +
+            '<td><input type="checkbox" onchange="UpdateListDataOnServer(' + id + ',' + parentID + ')"></td>' +
+            '<td><div contenteditable onblur="UpdateListDataOnServer(' + id + ',' + parentID + ')">' + name + '</div></td>' +
+            '<td><div contenteditable onblur="UpdateListDataOnServer(' + id + ',' + parentID + ')">0,00</div></td>' +
+            '<td><div contenteditable onblur="UpdateListDataOnServer(' + id + ',' + parentID + ')"></div></td>' +
+            '<td><div contenteditable onblur="UpdateListDataOnServer(' + id + ',' + parentID + ')"></div></td>' +
+            '</tr>';
+
     $("#ElementsOfListTable").append(newTableItem);
 }
 
 function UpdateListDataOnServer(id, parentID)
 {
-    if(document.readyState === "complete")
+    if (document.readyState === "complete")
     {
         alert($(this).parent().attr('id')); //TODO Update aufrufen
-    }    
+    }
 }
 
 function LoadListTable(id)
@@ -132,30 +133,34 @@ function LoadListTable(id)
     $("#MainContainer").empty();
     $("#MainContainer").load("pages/itemList.html", function() {
         LoadSpecificServerList(id);
-    });   
+    });
 }
 
 
 function LoadIndex()
 {
     $("#MainContainer").empty();
-    $("#MainContainer").load("index.html #MainContainer > *", function(){
+    $("#MainContainer").load("index.html #MainContainer > *", function() {
         LoadAllServerLists();
     });
 }
 
-function ctc(id)
+function CopyToClipboard(id)
 {
+
     alert();
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
-            var text = "";
-            text = result.name + " "; 
-            alert(text);
-            $.each(result.items, function(index, element){
-               text = text + element.id + element.name;
-               
-            });
-            alert(text);
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
+        var text = "";
+        text = result.name + " \r\n";
+        alert(text);
+        $.each(result.items, function(index, element) {
+            text = text + element.name+" \r\n";
+
+        });
+        alert(text);
+    
+            window.clipboardData.setData('Text', text);
+        
 
     });
 }
@@ -165,13 +170,13 @@ function CheckItemDate()
     CurrentDate = new Date();
     var Counter = 0;
 
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list){
-        $.each(list, function(i, field){
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list) {
+        $.each(list, function(i, field) {
             $.each(field.items, function(x, item)
             {
                 var ItemAlert = false;
                 var felder = item.einkaufsdatum.split('-', 3);
-                
+
                 var ItemMonth = parseInt(felder[1]);
                 var ItemDay = parseInt(felder[2].split(' ', 1));
                 var ItemYear = parseInt(felder[0]);
@@ -196,7 +201,7 @@ function CheckItemDate()
                 if (ItemAlert && item.gekauft === "0")
                 {
                     Counter = Counter + 1;
-                    var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
+                    var newItem = "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" + item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
                     $("#Erinnerungen").append(newItem);
                     $("#ErinnerungCount").empty();
                     $("#ErinnerungCount").append(Counter);
