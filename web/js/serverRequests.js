@@ -52,42 +52,18 @@ function CheckItemDate()
     CurrentDate = new Date();
     var Counter = 0;
 
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list){
-        $.each(list, function(i, field){
-            $.each(field.items, function(x, item)
-            {
-                var ItemAlert = false;
-                var felder = item.einkaufsdatum.split('-', 3);
-                
-                var ItemMonth = parseInt(felder[1]);
-                var ItemDay = parseInt(felder[2].split(' ', 1));
-                var ItemYear = parseInt(felder[0]);
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/4/items/?function=checkNotifications", function(result){
+        $.each(result, function(i, item){
+            
+            
+            $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + item.liste, function(list){
+            
+                var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + list.id + ")\">Item: <kbd>" +  list.name + "</kbd> in der Liste: <kbd>" + item.name + "</kbd> ist abgelaufen</a></li>";
+                $("#Erinnerungen").append(newItem);
 
-                var LatestMonth = parseInt(CurrentDate.getMonth() + 1);
-                var LatestDay = parseInt(CurrentDate.getDate());
-                var LatestYear = parseInt(CurrentDate.getFullYear());
-
-                if (ItemYear < LatestYear)
-                {
-                    ItemAlert = true;
-                }
-                else if (ItemMonth < LatestMonth)
-                {
-                    ItemAlert = true;
-                }
-                else if (ItemDay < LatestDay - 2)
-                {
-                    ItemAlert = true;
-                }
-
-                if (ItemAlert && item.gekauft === "0")
-                {
-                    Counter = Counter + 1;
-                    var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
-                    $("#Erinnerungen").append(newItem);
-                    $("#ErinnerungCount").empty();
-                    $("#ErinnerungCount").append(Counter);
-                }
+                Counter = Counter + 1;
+                $("#ErinnerungCount").empty();
+                $("#ErinnerungCount").append(Counter);
             });
         });
     });
