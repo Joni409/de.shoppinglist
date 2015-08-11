@@ -83,6 +83,21 @@ function LoadSpecificServerList(id)
     });
 };
 
+function ctc(id)
+{
+    alert();
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
+            var text = "";
+            text = result.name + " "; 
+            alert(text);
+            $.each(result.items, function(index, element){
+               text = text + element.id + element.name;
+               
+            });
+            alert(text);
+
+    });
+};
 function GenerateRandomColor()
 {
     var colors = ['btn-warning', 'btn-info', 'btn-danger', 'btn-success', 'btn-default', 'btn-primary'];
