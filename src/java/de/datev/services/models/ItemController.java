@@ -1,10 +1,12 @@
 package de.datev.services.models;
 
 import static de.datev.services.restful.config.ApplicationConfiguration.Sql;
-import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -20,9 +22,9 @@ public class ItemController {
         try {
             ResultSet rs = Sql.select("item", "item_shoppinglist_fk", listId);
             while (rs.next()) {
-                ItemModel currentShoppingList = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"));
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert");
                 
-                result.add(currentShoppingList);
+                result.add(currentItem);
             }
         } catch (SQLException e) {
 
@@ -36,8 +38,8 @@ public class ItemController {
         try {
             ResultSet rs = Sql.select("item", "item_id_pk", itemId);
             while (rs.next()) {
-                ItemModel currentShoppingList = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"));
-                result = currentShoppingList;
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert");
+                result = currentItem;
             }
         } catch (SQLException e) {
 
@@ -48,10 +50,46 @@ public class ItemController {
         return result;
     }
     
-    public static void CreateList(String name, String beschreibung, String color)
-    {
-        Sql.insert("shoppinglist", new String[]{"", name, beschreibung, color});
+    public static boolean updateItem(HashMap<String, String> updateData, String id) {
+        LinkedHashMap <String, String> mapNamesToSqlStructure = new LinkedHashMap<String, String>();
+        mapNamesToSqlStructure.put("item_name_nn", "name");
+        mapNamesToSqlStructure.put("item_createDate", "fälligkeitsdatum");
+        mapNamesToSqlStructure.put("item_preis", "preis");
+        mapNamesToSqlStructure.put("item_gekauft", "gekauft");
+        mapNamesToSqlStructure.put("item_user_fk", "einkäufer");
+        
+        String[] columnNames = new String[updateData.size()];
+        String[] columnValues = new String[updateData.size()];
+        int index = 0;
+        
+        for(String sqlKey : mapNamesToSqlStructure.keySet())
+        {
+            String value = mapNamesToSqlStructure.get(sqlKey);
+            
+            for(String updateKey : updateData.keySet())
+            {
+                if(value.equals(updateKey))
+                {
+                    columnNames[index] = sqlKey;
+                    columnValues[index] = updateData.get(updateKey);
+                    updateData.remove(updateKey);
+                    index++;
+                    break;
+                }
+            }
+        }
+        
+        if(updateData.size() == 0)
+        {
+            Sql.update("item", columnNames, columnValues, "item_id_pk", id);
+            return true;
+        }
+        
+        return false;
+        
     }
 
-    
+    public static void createItem(String name, String einkaufsdatum, String preis, String gekauft, String erlediger) {
+        Sql.insert("item", new String[]{"", name, "1", einkaufsdatum, preis, gekauft, "1"});
+    }
 }

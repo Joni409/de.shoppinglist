@@ -32,12 +32,14 @@ public class ItemCollectionBoundary {
     
     @POST
     @Consumes({"application/json"})
-    public void CreateList(String json) throws JSONException
+    public void createItem(String json) throws JSONException
     {
-        /*JSONObject jsonData = new JSONObject(json);
+        JSONObject jsonData = new JSONObject(json);
         String name = jsonData.getString("name");
-        String beschreibung = jsonData.getString("beschreibung");
-        String color = jsonData.getString("color");
-        ShoppingListController.CreateList(name, beschreibung, color);*/
+        String einkaufsdatum = jsonData.getString("einkaufsdatum");
+        String preis = jsonData.getString("preis");
+        String gekauft = jsonData.getString("gekauft");
+        String erlediger = jsonData.getString("erlediger");
+        ItemController.createItem(name, einkaufsdatum, preis, gekauft, erlediger);
     }
 }

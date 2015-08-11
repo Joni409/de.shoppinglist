@@ -2,10 +2,13 @@ package de.datev.services.restful.service;
 
 import de.datev.services.models.ItemController;
 import de.datev.services.models.ItemModel;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,12 +35,42 @@ public class ItemBoundary {
     
     @POST
     @Consumes({"application/json"})
-    public void CreateList(String json) throws JSONException
+    public void CreateItem(String json) throws JSONException
     {
         /*JSONObject jsonData = new JSONObject(json);
         String name = jsonData.getString("name");
         String beschreibung = jsonData.getString("beschreibung");
         String color = jsonData.getString("color");
         ShoppingListController.CreateList(name, beschreibung, color);*/
+    }
+    
+    @PUT
+    @Consumes({"application/json"})
+    public Response UpdateItem(String json, @PathParam("ItemID") String id) throws JSONException{
+        JSONObject jsonData = new JSONObject(json);
+        /*String name = jsonData.getString("name");
+        String einkaufsdatum = jsonData.getString("fälligkeitsdatum");
+        String preis = jsonData.getString("preis");
+        String gekauft = jsonData.getString("gekauft");
+        String erlediger = jsonData.getString("erlediger");*/
+        HashMap<String, String> updateData = new HashMap<String, String>();
+        
+        Iterator iteratorKeys = jsonData.keys();
+        
+        do{
+            String currentKey = (String)iteratorKeys.next();
+            updateData.put(currentKey, jsonData.getString(currentKey));
+        }while(iteratorKeys.hasNext());
+        
+        boolean successful = ItemController.updateItem(updateData, id);
+        
+         if(successful)
+        {
+            return Response.status(Response.Status.OK).build();
+        }
+        else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 }
