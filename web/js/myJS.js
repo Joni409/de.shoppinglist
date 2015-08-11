@@ -88,7 +88,6 @@ function LoadSpecificServerList(id)
 
 function CopyToClipboard(id)
 {
-    alert();
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
         var text = "";
         text = result.name + " \r\n ";
