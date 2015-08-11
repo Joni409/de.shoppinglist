@@ -74,8 +74,11 @@ function LoadAllServerLists()
 function LoadSpecificServerList(id)
 {
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
-        $.each(result.items, function(index, element){
-            AddElementsToListTable(element.id, element.name);
+        $(document).ready(function() {
+            $("#ListeHeadline").text(result.name); 
+            $.each(result.items, function(index, element){
+                AddElementsToListTable(element.id, element.name);
+            });
         });
     });
 };
@@ -116,16 +119,19 @@ function LoadListTable(id)
 {
     window.currentid = id;
     $("#MainContainer").empty();
-    $("#MainContainer").load("pages/itemList.html",  LoadSpecificServerList(id));
-    
-   
+    $("#MainContainer").load("pages/itemList.html");   
+    $(document).ready(function() {
+        LoadSpecificServerList(id);
+    });
 }
 
 function LoadIndex()
 {
     $("#MainContainer").empty();
     $("#MainContainer").load("index.html #MainContainer > *");
-    LoadAllServerLists();
+    $(document).ready(function() {
+        LoadAllServerLists();
+    });
 };
 
 function CheckItemDate()
@@ -164,7 +170,7 @@ function CheckItemDate()
                 if (ItemAlert)
                 {
                     Counter = Counter + 1;
-                    var newItem =   "<li><a href=\"#\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
+                    var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
                     $("#Erinnerungen").append(newItem);
                     $("#ErinnerungCount").empty();
                     $("#ErinnerungCount").append(Counter);
