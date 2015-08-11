@@ -119,17 +119,15 @@ function LoadListTable(id)
 {
     window.currentid = id;
     $("#MainContainer").empty();
-    $("#MainContainer").load("pages/itemList.html");   
-    $(document).ready(function() {
+    $("#MainContainer").load("pages/itemList.html", function() {
         LoadSpecificServerList(id);
-    });
+    });   
 }
 
 function LoadIndex()
 {
     $("#MainContainer").empty();
-    $("#MainContainer").load("index.html #MainContainer > *");
-    $(document).ready(function() {
+    $("#MainContainer").load("index.html #MainContainer > *", function(){
         LoadAllServerLists();
     });
 };
