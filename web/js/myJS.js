@@ -74,12 +74,30 @@ function LoadAllServerLists()
 function LoadSpecificServerList(id)
 {
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
-        $.each(result.items, function(index, element){
-            AddElementsToListTable(element.id, element.name);
+        $(document).ready(function() {
+            $("#ListeHeadline").text(result.name); 
+            $.each(result.items, function(index, element){
+                AddElementsToListTable(element.id, element.name);
+            });
         });
     });
 };
 
+function ctc(id)
+{
+    alert();
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
+            var text = "";
+            text = result.name + " "; 
+            alert(text);
+            $.each(result.items, function(index, element){
+               text = text + element.id + element.name;
+               
+            });
+            alert(text);
+
+    });
+};
 function GenerateRandomColor()
 {
     var colors = ['btn-warning', 'btn-info', 'btn-danger', 'btn-success', 'btn-default', 'btn-primary'];
@@ -114,16 +132,19 @@ function AddElementsToListTable(id, name)
 
 function LoadListTable(id)
 {
+    window.currentid = id;
     $("#MainContainer").empty();
-    $("#MainContainer").load("pages/itemList.html");
-    LoadSpecificServerList(id);
-};
+    $("#MainContainer").load("pages/itemList.html", function() {
+        LoadSpecificServerList(id);
+    });   
+}
 
 function LoadIndex()
 {
     $("#MainContainer").empty();
-    $("#MainContainer").load("index.html #MainContainer > *");
-    LoadAllServerLists();
+    $("#MainContainer").load("index.html #MainContainer > *", function(){
+        LoadAllServerLists();
+    });
 };
 
 function CheckItemDate()
@@ -159,10 +180,10 @@ function CheckItemDate()
                     ItemAlert = true;
                 }
 
-                if (ItemAlert)
+                if (ItemAlert && item.gekauft === "0")
                 {
                     Counter = Counter + 1;
-                    var newItem =   "<li><a href=\"#\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
+                    var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
                     $("#Erinnerungen").append(newItem);
                     $("#ErinnerungCount").empty();
                     $("#ErinnerungCount").append(Counter);
