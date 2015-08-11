@@ -38,7 +38,12 @@ function CopyToClipboard(id)
         $.each(result.items, function(index, element) {
             text = text + element.name+" \r\n";
         });
-            window.clipboardData.setData('Text', text);
+               if (isIe) {
+        window.clipboardData.setData('Text', text);    
+    } else {
+        e.clipboardData.setData('text/plain', text);
+    }
+    alert("Deine Einkaufsliste ist nun in der Zwischenablage");
     });
 }
 
