@@ -6,8 +6,6 @@
 
 package de.datev.services.models;
 
-import static de.datev.services.restful.config.ApplicationConfiguration.Sql;
-
 /**
  *
  * @author TG00023
@@ -18,7 +16,16 @@ public class UserModel
 	private String UserName;
 	private String Password;
 	
-	private void setID(int ID)
+	public UserModel(int ID, String UserName, String Password)
+	{
+		this.ID = ID;
+		this.UserName = UserName;
+		this.Password = Password;
+	}
+	
+	public UserModel() {}
+	
+	public void setID(int ID)
 	{
 		this.ID = ID;
 	}
@@ -38,20 +45,13 @@ public class UserModel
 		return this.UserName;
 	}
 	
-	private void setPassword(String Password)
+	public void setPassword(String Password)
 	{
 		this.Password = Password;
 	}
 	
-	private String getPassword()
+	public String getPassword()
 	{
 		return this.Password;
-	}
-	
-	public void registerUser(String UserName, String Password)
-	{
-		String[] values = {UserName, Password};
-		
-		Sql.insert("users", values);
 	}
 }
