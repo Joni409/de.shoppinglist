@@ -2,7 +2,9 @@ package de.datev.services.restful.service;
 
 import de.datev.services.models.ItemController;
 import de.datev.services.models.ItemModel;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -44,13 +46,31 @@ public class ItemBoundary {
     
     @PUT
     @Consumes({"application/json"})
-    public void UpdateItem(String json, @PathParam("ItemID") String id) throws JSONException{
+    public Response UpdateItem(String json, @PathParam("ItemID") String id) throws JSONException{
         JSONObject jsonData = new JSONObject(json);
-        String name = jsonData.getString("name");
-        String einkaufsdatum = jsonData.getString("einkaufsdatum");
+        /*String name = jsonData.getString("name");
+        String einkaufsdatum = jsonData.getString("fälligkeitsdatum");
         String preis = jsonData.getString("preis");
         String gekauft = jsonData.getString("gekauft");
-        String erlediger = jsonData.getString("erlediger");
-        ItemController.updateItem(id, name, einkaufsdatum, preis, gekauft, erlediger);
+        String erlediger = jsonData.getString("erlediger");*/
+        HashMap<String, String> updateData = new HashMap<String, String>();
+        
+        Iterator iteratorKeys = jsonData.keys();
+        
+        do{
+            String currentKey = (String)iteratorKeys.next();
+            updateData.put(currentKey, jsonData.getString(currentKey));
+        }while(iteratorKeys.hasNext());
+        
+        boolean successful = ItemController.updateItem(updateData, id);
+        
+         if(successful)
+        {
+            return Response.status(Response.Status.OK).build();
+        }
+        else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 }
