@@ -53,14 +53,14 @@ $("#AddItemButton").click(function()
 function CreateNewServerList(name, beschreibung, color)
 {
     $.ajax({
-    url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
-    type: "POST",
-    headers:{
-        "X-Auth" : "1234"
-    },
-    data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
-    contentType: "application/json"
-});
+        url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
+        type: "POST",
+        headers:{
+            "X-Auth" : "1234"
+        },
+        data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
+        contentType: "application/json"
+    });
 }
 
 function LoadAllServerLists()
@@ -78,7 +78,7 @@ function LoadSpecificServerList(id)
 {
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
         $.each(result.items, function(index, element){
-            AddElementsToListTable(element.id, element.name);
+            AddElementsToListTable(element.id, element.name, id);
         });
     });
 }
@@ -102,16 +102,25 @@ function AddItemToListContainer(id, name, description, color)
     $("#ListContainer").append(newListItem);
 }
 
-function AddElementsToListTable(id, name)
+function AddElementsToListTable(id, name, parentID)
 {
     var newTableItem =  '<tr>'+
-                            '<td>' + id + '</td>'+
-                            '<td>' + name + '</td>'+
-                            '<td>0,00</td>'+
-                            '<td></td>'+
+                            '<td><input type="checkbox" onchange="UpdateListDataOnServer('+id+','+parentID+')"></td>'+
+                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')">' +name+ '</div></td>'+
+                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')">0,00</div></td>'+ 
+                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')"></div></td>'+
+                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')"></div></td>'+
                         '</tr>';
                 
-    $("#ElementsOfListTable").append(newTableItem);      
+    $("#ElementsOfListTable").append(newTableItem);
+}
+
+function UpdateListDataOnServer(id, parentID)
+{
+    if(document.readyState === "complete")
+    {
+        alert($(this).parent().attr('id')); //TODO Update aufrufen
+    }    
 }
 
 function LoadListTable(id)
