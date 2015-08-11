@@ -24,7 +24,7 @@ public class ShoppingListController {
             while (rs.next()) {
                 ShoppingListModel currentShoppingList = new ShoppingListModel(rs.getInt("shoppinglist_id_pk"), rs.getString("shoppinglist_name_nn"), rs.getString("shoppinglist_beschreibung"), rs.getString("shoppinglist_color"));
                 
-                ResultSet currentItemResult = Sql.select("item", "item_shoppinglist_fk", currentShoppingList.getID() + "");
+                ResultSet currentItemResult = Sql.select("item", "item_shoppinglist_fk", String.valueOf(currentShoppingList.getID()));
                 List<ItemModel> items = new ArrayList<>();
                 while(currentItemResult.next()){
                     int i = currentItemResult.getInt("item_id_pk");
@@ -34,7 +34,7 @@ public class ShoppingListController {
                     String gekauft = currentItemResult.getString("item_gekauft");
                     Timestamp createTimestamp = currentItemResult.getTimestamp("item_createDate");
                     boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), currentItemResult.getString("item_gekauft"));
-                    ItemModel currentItem = new ItemModel(i, name, date, preis, gekauft, "Noch nicht implementiert", notificationStatus);
+                    ItemModel currentItem = new ItemModel(i, name, currentItemResult.getInt("item_shoppinglist_fk"), date, preis, gekauft, "Noch nicht implementiert", notificationStatus);
                     items.add(currentItem);
                 }
                 currentShoppingList.setItems(items);
@@ -61,7 +61,7 @@ public class ShoppingListController {
                 while(currentItemResult.next()){
                     Timestamp createTimestamp = currentItemResult.getTimestamp("item_createDate");
                     boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), currentItemResult.getString("item_gekauft"));
-                    ItemModel currentItem = new ItemModel(currentItemResult.getInt("item_id_pk"), currentItemResult.getString("item_name_nn"), currentItemResult.getString("item_createDate"), currentItemResult.getString("item_preis"), currentItemResult.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
+                    ItemModel currentItem = new ItemModel(currentItemResult.getInt("item_id_pk"), currentItemResult.getString("item_name_nn"), currentItemResult.getInt("item_shoppinglist_fk"), currentItemResult.getString("item_createDate"), currentItemResult.getString("item_preis"), currentItemResult.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
                     items.add(currentItem);
                 }
                 result.setItems(items);

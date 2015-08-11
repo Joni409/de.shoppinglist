@@ -25,7 +25,7 @@ public class ItemController {
             while (rs.next()) {
                 Timestamp createTimestamp = rs.getTimestamp("item_createDate");
                 boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), rs.getString("item_gekauft"));
-                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getInt("item_shoppinglist_fk"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
                 result.add(currentItem);
             }
         } catch (SQLException e) {
@@ -43,7 +43,7 @@ public class ItemController {
             while (rs.next()) {
                 Timestamp createTimestamp = rs.getTimestamp("item_createDate");
                 boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), rs.getString("item_gekauft"));
-                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getInt("item_shoppinglist_fk"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
                 result.add(currentItem);
             }
         } catch (SQLException e) {
@@ -60,7 +60,7 @@ public class ItemController {
             while (rs.next()) {
                 Timestamp createTimestamp = rs.getTimestamp("item_createDate");
                 boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), rs.getString("item_gekauft"));
-                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getInt("item_shoppinglist_fk"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
                 result = currentItem;
             }
         } catch (SQLException e) {
