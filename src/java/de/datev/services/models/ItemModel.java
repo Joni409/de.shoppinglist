@@ -73,16 +73,27 @@ public class ItemModel {
         this.Erlediger = erlediger;
     }
     
+    private boolean Notification;
+
+    public boolean getNotification() {
+        return Notification;
+    }
+    
+    public void setNotification(boolean notification){
+        this.Notification = notification;
+    }
+    
     public ItemModel(){
         
     }
     
-    public ItemModel(int id, String name, String einkaufsdatum, String preis, String gekauft, String erlediger){
+    public ItemModel(int id, String name, String einkaufsdatum, String preis, String gekauft, String erlediger, boolean notification){
         this.ID = id;
         this.Name = name;
         this.Einkaufsdatum = einkaufsdatum;
         this.Preis = preis;
         this.Gekauft = gekauft;
         this.Erlediger = erlediger;
+        this.Notification = notification;
     }
 }

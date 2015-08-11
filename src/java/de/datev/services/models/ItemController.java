@@ -3,6 +3,7 @@ package de.datev.services.models;
 import static de.datev.services.restful.config.ApplicationConfiguration.Sql;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +16,24 @@ import java.util.List;
  */
 public class ItemController {
 
+    public static List<ItemModel> getAllItems() {
+
+        List<ItemModel> result = new ArrayList<ItemModel>();
+        
+        try {
+            ResultSet rs = Sql.select("item");
+            while (rs.next()) {
+                Timestamp createTimestamp = rs.getTimestamp("item_createDate");
+                boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), rs.getString("item_gekauft"));
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
+                result.add(currentItem);
+            }
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
+    
     public static List<ItemModel> getItems(String listId) {
 
         List<ItemModel> result = new ArrayList<ItemModel>();
@@ -22,8 +41,9 @@ public class ItemController {
         try {
             ResultSet rs = Sql.select("item", "item_shoppinglist_fk", listId);
             while (rs.next()) {
-                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert");
-                
+                Timestamp createTimestamp = rs.getTimestamp("item_createDate");
+                boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), rs.getString("item_gekauft"));
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
                 result.add(currentItem);
             }
         } catch (SQLException e) {
@@ -38,7 +58,9 @@ public class ItemController {
         try {
             ResultSet rs = Sql.select("item", "item_id_pk", itemId);
             while (rs.next()) {
-                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert");
+                Timestamp createTimestamp = rs.getTimestamp("item_createDate");
+                boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), rs.getString("item_gekauft"));
+                ItemModel currentItem = new ItemModel(rs.getInt("item_id_pk"), rs.getString("item_name_nn"), rs.getString("item_createDate"), rs.getString("item_preis"), rs.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
                 result = currentItem;
             }
         } catch (SQLException e) {
