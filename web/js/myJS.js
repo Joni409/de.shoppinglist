@@ -9,7 +9,7 @@ function LoadConfiguration()
     $.ajaxSetup({
         headers:{
             "X-Auth" : "1234"
-        }
+        }       
     });
 };
 
@@ -53,11 +53,14 @@ $("#AddItemButton").click(function()
 function CreateNewServerList(name, beschreibung, color)
 {
     $.ajax({
-    url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
-    type: "POST",
-    data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
-    contentType: "application/json"
-});
+        url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
+        type: "POST",
+        headers:{
+            "X-Auth" : "1234"
+        },
+        data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
+        contentType: "application/json"
+    });
 }
 
 function LoadAllServerLists()
@@ -69,26 +72,26 @@ function LoadAllServerLists()
             AddItemToListContainer(element.id, element.name, element.beschreibung, element.color);
         });
     });
-};
+}
 
 function LoadSpecificServerList(id)
 {
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
-        $(document).ready(function() {
+        $(document).ready(function(){
             $("#ListeHeadline").text(result.name); 
             $.each(result.items, function(index, element){
-                AddElementsToListTable(element.id, element.name);
+                AddElementsToListTable(element.id, element.name, id);
             });
         });
     });
-};
+}
 
 function GenerateRandomColor()
 {
     var colors = ['btn-warning', 'btn-info', 'btn-danger', 'btn-success', 'btn-default', 'btn-primary'];
     var randomNumber = Math.floor(Math.random() * 6);
     return colors[randomNumber];
-};
+}
 
 function AddItemToListContainer(id, name, description, color)
 {
@@ -100,39 +103,62 @@ function AddItemToListContainer(id, name, description, color)
             '</div>';
 
     $("#ListContainer").append(newListItem);
-};
+}
 
-function AddElementsToListTable(id, name)
+function AddElementsToListTable(id, name, parentID)
 {
     var newTableItem =  '<tr>'+
-                            '<td>' + id + '</td>'+
-                            '<td>' + name + '</td>'+
-                            '<td>0,00</td>'+
-                            '<td></td>'+
-							'<td><a class="btn btn-default glyphiconButton" href="#" data-toggle="modal" data-target="#EditItemModal"><span class="glyphicon glyphicon-cog"></span></a></td>' +
+                            '<td><input type="checkbox" onchange="UpdateListDataOnServer('+id+','+parentID+')"></td>'+
+                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')">' +name+ '</div></td>'+
+                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')">0,00</div></td>'+ 
+                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')"></div></td>'+
+                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')"></div></td>'+
                         '</tr>';
                 
-    $("#ElementsOfListTable").append(newTableItem);      
-};
+    $("#ElementsOfListTable").append(newTableItem);
+}
+
+function UpdateListDataOnServer(id, parentID)
+{
+    if(document.readyState === "complete")
+    {
+        alert($(this).parent().attr('id')); //TODO Update aufrufen
+    }    
+}
 
 function LoadListTable(id)
 {
     window.currentid = id;
     $("#MainContainer").empty();
-    $("#MainContainer").load("pages/itemList.html");   
-    $(document).ready(function() {
+    $("#MainContainer").load("pages/itemList.html", function() {
         LoadSpecificServerList(id);
-    });
+    });   
 }
+
 
 function LoadIndex()
 {
     $("#MainContainer").empty();
-    $("#MainContainer").load("index.html #MainContainer > *");
-    $(document).ready(function() {
+    $("#MainContainer").load("index.html #MainContainer > *", function(){
         LoadAllServerLists();
     });
-};
+}
+
+function ctc(id)
+{
+    alert();
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
+            var text = "";
+            text = result.name + " "; 
+            alert(text);
+            $.each(result.items, function(index, element){
+               text = text + element.id + element.name;
+               
+            });
+            alert(text);
+
+    });
+}
 
 function CheckItemDate()
 {
@@ -167,7 +193,7 @@ function CheckItemDate()
                     ItemAlert = true;
                 }
 
-                if (ItemAlert)
+                if (ItemAlert && item.gekauft === "0")
                 {
                     Counter = Counter + 1;
                     var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
@@ -178,4 +204,4 @@ function CheckItemDate()
             });
         });
     });
-};
+}
