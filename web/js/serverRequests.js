@@ -30,17 +30,15 @@ function LoadSpecificServerList(id)
     });
 }
 
-function ctc(id)
+function CopyToClipboard(id)
 {
-    alert();
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
-            var text = "";
-            text = result.name + " "; 
-            alert(text);
-            $.each(result.items, function(index, element){
-               text = text + element.id + element.name;
-            });
-            alert(text);
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
+        var text = "";
+        text = result.name + " \r\n";
+        $.each(result.items, function(index, element) {
+            text = text + element.name+" \r\n";
+        });
+            window.clipboardData.setData('Text', text);
     });
 }
 
