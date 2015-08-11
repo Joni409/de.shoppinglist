@@ -167,7 +167,7 @@ function CheckItemDate()
                     ItemAlert = true;
                 }
 
-                if (ItemAlert)
+                if (ItemAlert && item.gekauft === "0")
                 {
                     Counter = Counter + 1;
                     var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
