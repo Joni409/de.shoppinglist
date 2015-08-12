@@ -26,7 +26,7 @@ function LoadSpecificServerList(id)
         $("#ListeHeadline").text(result.name);
         $.each(result.items, function(index, element) 
         {
-            AddElementsToListTable(element.itemId, element.itemName, element.preis, element.gekauft, element.fälligkeitsdatum, element.käufer);
+            AddElementToListTable(element.itemId, element.itemName, element.preis, element.gekauft, element.fälligkeitsdatum, element.käufer);
         });
         window.readyToChange = true;
     });
