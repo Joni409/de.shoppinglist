@@ -36,6 +36,23 @@ input::-moz-focus-inner {
     border: 0;
 }
 
+.btn-trash{
+    color:black;
+}
+
+.btn-trash:focus{
+    color:red;
+}
+
+.btn-trash:hover{
+    color:red;
+}
+
+.modal-subline{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 #ErinnerungCount{
     margin-top: -15px;
     background: red;
