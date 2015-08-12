@@ -86,7 +86,7 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
 }
 
 function AddNewItemToList()
-{
+{    
     var listId = window.currentid;
     
     var itemname = document.getElementById("textItemname").value;
