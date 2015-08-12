@@ -17,7 +17,7 @@ function AddItemToListContainer(id, name, description, color)
     $("#ListContainer").append(newListItem);
 }
 
-function AddElementsToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
+function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
 {    
     var newTableRow = document.createElement("tr");
     CreateListElementInputTypeCheckbox(gekauft, id, newTableRow)
@@ -36,14 +36,7 @@ function CreateListElementInputTypeCheckbox(checked, elementId, newTableRow)
     
     newTableInputType.type = "checkbox";
     
-    if(checked === "0")
-    {
-        newTableInputType.checked = false;
-    }
-    else
-    {
-        newTableInputType.checked = true;
-    }
+    newTableInputType.checked = checked;
     
     var newId= "";
     newTableInputType.setAttribute('contenteditable', 'true'); 
@@ -85,4 +78,16 @@ function LoadIndex()
     $("#MainContainer").load("index.html #MainContainer > *", function(){
         LoadAllServerLists();
     });
+}
+
+function AddNewItemToList()
+{
+    var itemname = document.getElementById("textItemname").value;
+    var preis = document.getElementById("textPreis").value;
+    var fälligkeitsdatum = document.getElementById("textFälligkeitsdatum").value;
+    var erlediger = document.getElementById("textErlediger").value;
+    
+    var jsonToSend = '{"name" : "' + itemname + '","preis" : "' + preis + '","fälligkeitsdatum" : "' + fälligkeitsdatum + '","erlediger" : "' + erlediger + '"}';
+    
+    alert(jsonToSend);
 }
