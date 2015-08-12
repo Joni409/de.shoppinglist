@@ -8,6 +8,7 @@ package de.datev.services.restful.service;
 
 import de.datev.services.models.ShoppingListModel;
 import de.datev.services.models.ShoppingListController;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -24,5 +25,11 @@ public class ShoppingListBoundary {
     {
         ShoppingListModel result = ShoppingListController.getList(id);
         return Response.status(Response.Status.OK).entity(result).build();
+    }
+    
+    @DELETE
+    public void DeleteList(@PathParam("ListenID") int id)
+    {
+        ShoppingListController.deleteList(id);
     }
 }
