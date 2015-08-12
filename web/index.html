@@ -8,6 +8,8 @@
         <link href="css/myStyles.css" type="text/css" rel="stylesheet">
     </head>
     <body>
+        
+        <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -27,6 +29,7 @@
                                 <span class="badge" id="ErinnerungCount"></span>
                             </a>
                             <ul class="dropdown-menu" id="Erinnerungen">
+                                <li><a href="#">Keine Erinnerungen</a></li>
                             </ul>
                         </li>
 
@@ -43,10 +46,11 @@
                 </div>
             </div>
         </nav>
-
+        <!-- END-OF Navigation -->
+        
         <div class="container-fluid" id="MainContainer">
             <h1 class="page-header myHeader">Meine Einkaufslisten</h1>
-
+            
             <div id="ListContainer">
                 <!-- Listen vom Server werden hier eingefügt -->
             </div>
@@ -200,7 +204,7 @@
         </div>
 
 
-        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <nav class="navbar navbar-inverse navbar-fixed-bottom hidden-xs hidden-sm">
             <div class="container-fluid">
                 <div class="navbar-collapse">
                     <ul class="nav navbar-nav">

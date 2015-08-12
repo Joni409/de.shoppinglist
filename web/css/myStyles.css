@@ -53,6 +53,10 @@ input::-moz-focus-inner {
     margin-bottom: 5px;
 }
 
+.deleteList:hover{
+    color:red;
+}
+
 #ErinnerungCount{
     margin-top: -15px;
     background: red;
