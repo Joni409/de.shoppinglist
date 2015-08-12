@@ -34,12 +34,12 @@
     <a class="btn btn-primary glyphiconButton pull-right" href="#" onclick="LoadIndex()" data-toggle="tooltip" data-placement="top" title="Zurück zur Startseite">
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
     </a>
-    <a class="btn btn-primary glyphiconButton pull-right" href="#" data-toggle="modal" data-target="#UserPermissionModal">
-        <div data-toggle="tooltip" data-placement="top" title="Benutzer freigeben">
+    <div data-toggle="tooltip" data-placement="top" title="Benutzer freigeben">
+        <a class="btn btn-primary glyphiconButton pull-right" href="#" data-toggle="modal" data-target="#UserPermissionModal">
             <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
         </div>
     </a>
-    <a class="btn btn-primary glyphiconButton pull-right" href="#" onclick="CopyToClipboard(window.currentid)">
+    <a class="btn btn-primary glyphiconButton pull-right" id="copy-description" href="#" onclick="CopyToClipboard(window.currentid)">
         <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     </a>
 </div>
@@ -153,6 +153,5 @@
         }
     });    
 </script>
-
 <script src="js/pageFunctions.js"></script>
 <script src="js/serverRequests.js"></script>

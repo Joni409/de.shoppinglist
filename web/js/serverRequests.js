@@ -20,11 +20,11 @@ function LoadAllServerLists()
 
 function LoadSpecificServerList(id)
 {
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) 
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result)
     {
         window.readyToChange = false;
         $("#ListeHeadline").text(result.name);
-        $.each(result.items, function(index, element) 
+        $.each(result.items, function(index, element)
         {
             AddElementToListTable(element.itemId, element.itemName, element.preis, element.gekauft, element.fälligkeitsdatum, element.käufer);
         });
@@ -34,15 +34,17 @@ function LoadSpecificServerList(id)
 }
 
 function CopyToClipboard(id)
-{    
+{
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
         var text = result.name + " \r\n";
-        
+
         $.each(result.items, function(index, element) {
             text = text + element.itemName + " \r\n";
         });
-        
-        window.clipboardData.setData('Text', text);    
+        window.clipboardData.setData('Text', textToPutOnClipboard);
+        e.clipboardData.setData('text/plain', textToPutOnClipboard);
+
+
     });
 }
 
@@ -50,13 +52,13 @@ function CheckItemDate()
 {
     CurrentDate = new Date();
     var Counter = 0;
-    
+
     $("#Erinnerungen").empty();
-    
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/4/items/?function=checkNotifications", function(result){
-        $.each(result, function(i, item){
-            
-            var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + item.listenId + ")\">Item: <kbd>" +  item.itemName + "</kbd> in der Liste: <kbd>" + item.listenname + "</kbd> ist abgelaufen</a></li>";
+
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/4/items/?function=checkNotifications", function(result) {
+        $.each(result, function(i, item) {
+
+            var newItem = "<li><a href=\"#\" onclick=\"LoadListTable(" + item.listenId + ")\">Item: <kbd>" + item.itemName + "</kbd> in der Liste: <kbd>" + item.listenname + "</kbd> ist abgelaufen</a></li>";
             $("#Erinnerungen").append(newItem);
             Counter = Counter + 1;
             $("#ErinnerungCount").empty();
@@ -69,16 +71,16 @@ function CheckItemDate()
 function UpdateListDataOnServer(itemId, cellName, jsonName)
 {
     if (window.readyToChange === true)
-    {        
+    {
         var element = document.getElementById(itemId + cellName);
-        
+
         var jsonToSend = '{"' + jsonName + '":"' + element.innerHTML + '"}';
-        
+
         $.ajax({
-        url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
-        type: 'PUT',
-        data: jsonToSend,
-        contentType: 'application/json'
+            url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
+            type: 'PUT',
+            data: jsonToSend,
+            contentType: 'application/json'
         });
     }
 }
