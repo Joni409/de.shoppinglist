@@ -152,15 +152,38 @@
                             <input type="text" class="form-control" placeholder="Beschreibung" id="NewItemDescription">
                         </div>
                         <div class="form-group">
-                            <label for="ColorSelection">Farbe</label>
-                            <select id="ColorSelection" class="form-control">
-                                <option value="btn-default">Grau</option>
-                                <option value="btn-info">Hellblau</option>
-                                <option value="btn-warning">Orange</option>
-                                <option value="btn-danger">Rot</option>
-                                <option value="btn-primary">Blau</option>
-                                <option value="btn-success">Grün</option>
-                            </select>
+                            <form role="form" id="itemColor">
+                                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                    <label class="radio-inline btn btn-default">
+                                        <input type="radio" name="optradio" value="btn-default">Weiß
+                                    </label>
+
+
+                                    <label class="radio-inline btn btn-primary">
+                                        <input  type="radio" name="optradio" value="btn-primary">Dunkelblau
+                                    </label>
+
+
+                                    <label class="radio-inline btn btn-success">
+                                        <input  type="radio" name="optradio" value="btn-success">Grün
+                                    </label>
+
+
+                                    <label class="radio-inline btn btn-info">
+                                        <input  type="radio" name="optradio" value="btn-info">Hellblau
+                                    </label>
+
+
+                                    <label class="radio-inline btn btn-warning">
+                                        <input  type="radio" name="optradio" value="btn-warning">Orange
+                                    </label>
+
+
+                                    <label class="radio-inline btn btn-danger">
+                                        <input  type="radio" name="optradio" value="btn-danger">Rot
+                                    </label>
+                                </div>
+                            </form>
                         </div>
                         <div class="form-group">
                             <label for="ColorRandom">

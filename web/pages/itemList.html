@@ -48,25 +48,41 @@
                 <h4 class="modal-title" id="EditListModalLabel">Einkaufsliste freigeben</h4>
             </div>
             <div class="modal-body">
-				<div class="form-group">
-					<label for="txtUser">Benutzername</label>
-					<input type="text" class="form-control" id="txtUser" />
-				</div>
-				<button type="button" class="btn btn-default pull-right">Benutzer zur Freigabeliste hinzufügen</button>
-				<table class="table table-responsive">
-					<thead>
-						<tr><th>Benutzer</th><th></th></tr>
-					</thead>
-					<tbody>
-						<tr><td>Max Mustermann</td><td><span class="glyphicon glyphicon-trash"></span></td></tr>
-						<tr><td>John Doe</td><td><span class="glyphicon glyphicon-trash"></span></td></tr>
-						<tr><td>Pixel</td><td><span class="glyphicon glyphicon-trash"></span></td></tr>
-					</tbody>
-				</table>
+                <form class="form-horizontal" role="form">
+                    <label class="modal-subline">Benutzer hinzufügen</label>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="userName" placeholder="Benutzername">
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="#" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span></a>
+                        </div>
+                    </div>
+                
+                    <label class="modal-subline">Benutzer auswählen</label>
+                    <ul class="list-group">
+                        <li class="list-group-item checkbox">
+                            <label class="check-user"><input type="checkbox" class="checkbox-user">Max Mustermann</label>
+                            <span class="glyphicon glyphicon-trash pull-right btn-trash">
+                        </li>
+                        <li class="list-group-item checkbox">
+                            <label class="check-user"><input type="checkbox" class="checkbox-user">John Doe</label>
+                            <span class="glyphicon glyphicon-trash pull-right btn-trash">
+                        </li>
+                        <li class="list-group-item checkbox">
+                            <label class="check-user"><input type="checkbox" class="checkbox-user">Pixel</label>
+                            <span class="glyphicon glyphicon-trash pull-right btn-trash">
+                        </li>
+                        <li class="list-group-item checkbox">
+                            <label class="check-user"><input type="checkbox" class="checkbox-user">Pixel2</label>
+                            <span class="glyphicon glyphicon-trash pull-right btn-trash">
+                        </li>
+                    </ul>  
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-                <button id="EditListButton" type="button" class="btn btn-primary" data-dismiss="modal">Liste speichern</button>
+                <button id="EditListButton" type="button" class="btn btn-primary" data-dismiss="modal">Benutzer freigeben</button>
             </div>
         </div>
     </div>
@@ -90,3 +106,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(".check-user").on( "click", function() {
+        if($(this).find(".checkbox-user").prop('checked')){
+            $(this).parent().css("background-color", "#A9E2F3");
+        }
+        else{
+            $(this).parent().css("background-color", "");
+        }
+   });
+</script>
