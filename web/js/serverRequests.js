@@ -34,19 +34,15 @@ function LoadSpecificServerList(id)
 }
 
 function CopyToClipboard(id)
-{
+{    
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
-        var text = "";
-        text = result.name + " \r\n";
+        var text = result.name + " \r\n";
+        
         $.each(result.items, function(index, element) {
-            text = text + element.name + " \r\n";
+            text = text + element.itemName + " \r\n";
         });
-               if (isIe) {
+        
         window.clipboardData.setData('Text', text);    
-    } else {
-        e.clipboardData.setData('text/plain', text);
-    }
-    alert("Deine Einkaufsliste ist nun in der Zwischenablage");
     });
 }
 
@@ -54,19 +50,18 @@ function CheckItemDate()
 {
     CurrentDate = new Date();
     var Counter = 0;
-
+    
+    $("#Erinnerungen").empty();
+    
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/4/items/?function=checkNotifications", function(result){
         $.each(result, function(i, item){
             
-            
-            $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + item.liste, function(list){
-            
-                var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + list.id + ")\">Item: <kbd>" +  list.name + "</kbd> in der Liste: <kbd>" + item.name + "</kbd> ist abgelaufen</a></li>";
-                $("#Erinnerungen").append(newItem);
-                Counter = Counter + 1;
-                $("#ErinnerungCount").empty();
-                $("#ErinnerungCount").append(Counter);
-            });
+            var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + item.listenId + ")\">Item: <kbd>" +  item.itemName + "</kbd> in der Liste: <kbd>" + item.listenname + "</kbd> ist abgelaufen</a></li>";
+            $("#Erinnerungen").append(newItem);
+            Counter = Counter + 1;
+            $("#ErinnerungCount").empty();
+            $("#ErinnerungCount").append(Counter);
+
         });
     });
 }

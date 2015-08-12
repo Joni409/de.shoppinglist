@@ -29,6 +29,9 @@ $("#AddItemButton").click(function()
     }
     
     //Neues Element an den Server senden und dann neu laden
+    alert(name);
+    alert(description);
+    alert(choosedColor);
     CreateNewServerList(name, description, choosedColor);
 });
 

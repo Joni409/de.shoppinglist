@@ -105,7 +105,7 @@ public class ItemController {
         
     }
 
-    public static void createItem(String name, String einkaufsdatum, String preis, String gekauft, String erlediger) {
-        Sql.insert("item", new String[]{"", name, "1", einkaufsdatum, preis, gekauft, "1"});
+    public static void createItem(String name, String einkaufsdatum, String preis, String gekauft, String erlediger, String id) {
+        Sql.insert("item", new String[]{"", name, id, einkaufsdatum, preis, gekauft, erlediger});
     }
 }

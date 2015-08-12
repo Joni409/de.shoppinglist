@@ -26,7 +26,7 @@ public class Helper{
         
         if(currentDay.get(Calendar.DAY_OF_YEAR) >= createDay.get(Calendar.DAY_OF_YEAR) 
                 && currentDay.get(Calendar.YEAR) >= createDay.get(Calendar.YEAR)
-                && gekauft)
+                && !gekauft)
         {
             return true;
         }
