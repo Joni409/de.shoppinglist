@@ -45,8 +45,9 @@ function CreateListElementInputTypeCheckbox(checked, elementId, newTableRow)
         newTableInputType.checked = true;
     }
     
+    var newId= "";
     newTableInputType.setAttribute('contenteditable', 'true'); 
-    newTableInputType.id = elementId + checked;
+    newTableInputType.id = newId.concat(elementId,checked);
     newTableInputType.setAttribute('onchange', 'UpdateListDataOnServer(\''+ elementId + "\', \'" + checked + '\', \' gekauft \')');
    
     
@@ -59,9 +60,10 @@ function CreateListElement(elementName, elementId, newTableRow, jsonName)
     var newTableData = document.createElement("td");
     var newTableText = document.createTextNode(elementName);
     
+    var newId= "";
     newTableData.setAttribute('contenteditable', 'true');
     newTableData.setAttribute('onblur', 'UpdateListDataOnServer(\''+ elementId + "\', \'" + elementName + '\'' + "," + '\'' + jsonName + '\')');
-    newTableData.id = elementId + elementName;
+    newTableData.id = newId.concat(elementId,elementName);
     
     newTableData.appendChild(newTableText);
     newTableRow.appendChild(newTableData);
