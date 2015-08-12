@@ -25,7 +25,7 @@ $("#AddItemButton").click(function()
     }
     else
     {
-        choosedColor = $("#ColorSelection").val();
+        choosedColor = $('input[name=optradio]:checked', '#itemColor').val();
     }
     
     //Neues Element an den Server senden und dann neu laden
