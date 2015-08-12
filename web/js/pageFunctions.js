@@ -94,6 +94,7 @@ function ListButtonAction(loadTable, id){
 
 function LoadListTable(id)
 {
+    window.currentid = id;
     $("#MainContainer").empty();
     $("#MainContainer").load("pages/itemList.html", function() {
         LoadSpecificServerList(id);

@@ -37,10 +37,12 @@ function CopyToClipboard(id)
 {
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
         var text = "";
-        text = result.name + " \r\n";
+        text = result.listenname + " \r\n";
+        
         $.each(result.items, function(index, element) {
-            text = text + element.name + " \r\n";
+            text = text + element.itemName + " \r\n";
         });
+        
                if (isIe) {
         window.clipboardData.setData('Text', text);    
     } else {
