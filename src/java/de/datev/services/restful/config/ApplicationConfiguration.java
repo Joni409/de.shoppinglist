@@ -8,7 +8,6 @@ import javax.ws.rs.core.Application;
  * @author TG00030
  */
 @ApplicationPath("/api/")
-
 public class ApplicationConfiguration extends Application{
     
     public static MySql Sql = new MySql("192.168.1.69:3306", "root", "root", "shoppinglist");

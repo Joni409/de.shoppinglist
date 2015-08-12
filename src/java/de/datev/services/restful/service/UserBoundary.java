@@ -23,7 +23,7 @@ import javax.ws.rs.core.Response;
 @Path("user/{UserID}")
 public class UserBoundary
 {
-	@GET
+    @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getList(@PathParam("UserID") int id)
     {

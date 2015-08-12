@@ -63,9 +63,9 @@ public class ShoppingListController {
         return result;
     }
     
-    public static boolean CreateList(String name, String beschreibung, String color)
+    public static boolean CreateList(String name, String beschreibung, String color, String user)
     {
-        return Sql.insert("shoppinglist", new String[]{"", name, beschreibung, color});
+        return Sql.insert("shoppinglist", new String[]{"", name, beschreibung, color, user});
     }
 
     public static boolean deleteList(int id) {
