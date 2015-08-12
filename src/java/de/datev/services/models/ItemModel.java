@@ -13,74 +13,86 @@ import java.util.Date;
  */
 public class ItemModel {
 
-    private int ID;
+    
+    private int ItemId;
 
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int id) {
-        this.ID = id;
-    }
-
-    private String Name;
-
-    public String getName() {
-        return Name;
+    public int getItemId() {
+        return ItemId;
     }
     
-    public void setName(String name){
-        this.Name = name;
-    }
-    
-    private int Liste;
 
-    public int getListe() {
-        return Liste;
+    public void setItemId(int itemId) {
+        this.ItemId = itemId;
     }
-    
-    public void setListe(int liste){
-        this.Liste = liste;
-    }
-    
-    private String Einkaufsdatum;
 
-    public String getEinkaufsdatum() {
-        return Einkaufsdatum;
-    }
-    
-    public void setEinkaufsdatum(String einkaufsdatum){
-        this.Einkaufsdatum = einkaufsdatum;
-    }
-    
-    private String Preis;
+    private String ItemName;
 
-    public String getPreis() {
+    public String getItemName() {
+        return ItemName;
+    }
+    
+    public void setItemName(String itemName){
+        this.ItemName = itemName;
+    }
+    
+    private int ListenId;
+
+    public int getListenId() {
+        return ListenId;
+    }
+    
+    public void setListenId(int listeName){
+        this.ListenId = listeName;
+    }
+    
+    private String Listenname;
+
+    public String getListenname() {
+        return Listenname;
+    }
+    
+    public void setListenname(String listenname){
+        this.Listenname = listenname;
+    }
+    
+    private String Fälligkeitsdatum;
+
+    public String getFälligkeitsdatum() {
+        return Fälligkeitsdatum;
+    }
+    
+    public void setFälligkeitsdatum(String fälligkeitsdatum){
+        this.Fälligkeitsdatum = fälligkeitsdatum;
+    }
+    
+    private double Preis;
+
+    public double getPreis() {
         return Preis;
     }
     
-    public void setPreis(String preis){
+    public void setPreis(double preis){
         this.Preis = preis;
     }
     
-    private String Gekauft;
+    private boolean Gekauft;
 
-    public String getGekauft() {
+    public boolean getGekauft() {
         return Gekauft;
     }
     
-    public void setGekauft(String gekauft){
+    public void setGekauft(boolean gekauft){
         this.Gekauft = gekauft;
     }
     
-    private String Erlediger;
+    private String Käufer;
 
-    public String getErlediger() {
-        return Erlediger;
+    public String getKäufer() {
+        return Käufer;
     }
     
-    public void setErlediger(String erlediger){
-        this.Erlediger = erlediger;
+    public void setKäufer(String käufer){
+        this.Käufer = käufer;
     }
     
     private boolean Notification;
@@ -93,18 +105,15 @@ public class ItemModel {
         this.Notification = notification;
     }
     
-    public ItemModel(){
-        
-    }
-    
-    public ItemModel(int id, String name, int liste, String einkaufsdatum, String preis, String gekauft, String erlediger, boolean notification){
-        this.ID = id;
-        this.Name = name;
-        this.Liste = liste;
-        this.Einkaufsdatum = einkaufsdatum;
+    public ItemModel(int itemId, String itemName, int listenId, String listenName, String fälligkeitsdatum, double preis, boolean gekauft, String käufer, boolean notification){
+        this.ItemId = itemId;
+        this.ItemName = itemName;
+        this.ListenId = listenId;
+        this.Listenname = listenName;
+        this.Fälligkeitsdatum = fälligkeitsdatum;
         this.Preis = preis;
         this.Gekauft = gekauft;
-        this.Erlediger = erlediger;
+        this.Käufer = käufer;
         this.Notification = notification;
     }
 }

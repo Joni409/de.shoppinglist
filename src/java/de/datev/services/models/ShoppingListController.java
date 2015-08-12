@@ -22,19 +22,12 @@ public class ShoppingListController {
         try {
             ResultSet rs = Sql.select("shoppinglist");
             while (rs.next()) {
-                ShoppingListModel currentShoppingList = new ShoppingListModel(rs.getInt("shoppinglist_id_pk"), rs.getString("shoppinglist_name_nn"), rs.getString("shoppinglist_beschreibung"), rs.getString("shoppinglist_color"));
+                ShoppingListModel currentShoppingList = Helper.FillShoppingListModel(rs);
                 
                 ResultSet currentItemResult = Sql.select("item", "item_shoppinglist_fk", String.valueOf(currentShoppingList.getID()));
                 List<ItemModel> items = new ArrayList<>();
                 while(currentItemResult.next()){
-                    int i = currentItemResult.getInt("item_id_pk");
-                    String name = currentItemResult.getString("item_name_nn");
-                    String date = currentItemResult.getString("item_createDate");
-                    String preis = currentItemResult.getString("item_preis");
-                    String gekauft = currentItemResult.getString("item_gekauft");
-                    Timestamp createTimestamp = currentItemResult.getTimestamp("item_createDate");
-                    boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), currentItemResult.getString("item_gekauft"));
-                    ItemModel currentItem = new ItemModel(i, name, currentItemResult.getInt("item_shoppinglist_fk"), date, preis, gekauft, "Noch nicht implementiert", notificationStatus);
+                    ItemModel currentItem = Helper.FillItemModel(currentItemResult);
                     items.add(currentItem);
                 }
                 currentShoppingList.setItems(items);
@@ -54,14 +47,12 @@ public class ShoppingListController {
         try {
             ResultSet rs = Sql.select("shoppinglist", "shoppinglist_id_pk", String.valueOf(id));
             while (rs.next()) {
-                result = new ShoppingListModel(rs.getInt("shoppinglist_id_pk"), rs.getString("shoppinglist_name_nn"), rs.getString("shoppinglist_beschreibung"), rs.getString("shoppinglist_color"));
+                result = Helper.FillShoppingListModel(rs);
                 
                 ResultSet currentItemResult = Sql.select("item", "item_shoppinglist_fk", result.getID() + "");
                 List<ItemModel> items = new ArrayList<>();
                 while(currentItemResult.next()){
-                    Timestamp createTimestamp = currentItemResult.getTimestamp("item_createDate");
-                    boolean notificationStatus = Helper.CheckNotificationStatus(createTimestamp.getTime(), currentItemResult.getString("item_gekauft"));
-                    ItemModel currentItem = new ItemModel(currentItemResult.getInt("item_id_pk"), currentItemResult.getString("item_name_nn"), currentItemResult.getInt("item_shoppinglist_fk"), currentItemResult.getString("item_createDate"), currentItemResult.getString("item_preis"), currentItemResult.getString("item_gekauft"), "Noch nicht implementiert", notificationStatus);
+                    ItemModel currentItem = Helper.FillItemModel(currentItemResult);
                     items.add(currentItem);
                 }
                 result.setItems(items);
