@@ -38,6 +38,6 @@ public class ShoppingListCollectionBoundary {
         String name = jsonData.getString("name");
         String beschreibung = jsonData.getString("beschreibung");
         String color = jsonData.getString("color");
-        ShoppingListController.CreateList(name, beschreibung, color);
+        boolean successfulCreate = ShoppingListController.CreateList(name, beschreibung, color, "1");
     }
 }

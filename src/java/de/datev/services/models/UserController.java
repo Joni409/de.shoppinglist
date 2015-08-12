@@ -14,16 +14,16 @@ public class UserController
 	
 	public static UserModel getUser(int UserID)
 	{
-		UserModel result = new UserModel();
-		
-		try 
-		{
-                    ResultSet rs = Sql.select("user", "user_id_pk", String.valueOf(UserID));
-                    while (rs.next()) 
-                    {
-                        UserModel currentItem = new UserModel(rs.getInt("user_id_pk"), rs.getString("user_name"), rs.getString("user_password"));
-                        result = currentItem;
-                    }
+        UserModel result = new UserModel();
+
+        try 
+        {
+            ResultSet rs = Sql.select("user", "user_id_pk", String.valueOf(UserID));
+            while (rs.next()) 
+            {
+                UserModel currentItem = new UserModel(rs.getInt("user_id_pk"), rs.getString("user_name"), rs.getString("user_password"));
+                result = currentItem;
+            }
         } catch (SQLException e) {
             
         }
