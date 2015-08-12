@@ -19,8 +19,8 @@ function AddItemToListContainer(id, name, description, color)
 }
 
 function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
-{    
-    var newTableRow = document.createElement("tr");
+{        
+    var newTableRow = document.createElement("tr");   
     CreateListElementInputTypeCheckbox(gekauft, id, newTableRow)
     CreateListElement(name, id, newTableRow, 'name');
     CreateListElement(preis, id, newTableRow, 'preis');
@@ -100,25 +100,10 @@ function ListDelete(id)
     alert("Löschen der Liste mit der ID: " + id);
 }
 
-
-
-
 function LoadIndex()
 {
     $("#MainContainer").empty();
     $("#MainContainer").load("index.html #MainContainer > *", function(){
         LoadAllServerLists();
     });
-}
-
-function AddNewItemToList()
-{
-    var itemname = document.getElementById("textItemname").value;
-    var preis = document.getElementById("textPreis").value;
-    var fälligkeitsdatum = document.getElementById("textFälligkeitsdatum").value;
-    var erlediger = document.getElementById("textErlediger").value;
-    
-    var jsonToSend = '{"name" : "' + itemname + '","preis" : "' + preis + '","fälligkeitsdatum" : "' + fälligkeitsdatum + '","erlediger" : "' + erlediger + '"}';
-    
-    alert(jsonToSend);
 }

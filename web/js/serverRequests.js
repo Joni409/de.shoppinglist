@@ -82,4 +82,25 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
         });
     }
 }
+
+function AddNewItemToList()
+{
+    var listId = window.currentid;
+    
+    var itemname = document.getElementById("textItemname").value;
+    var preis = document.getElementById("textPreis").value;
+    var fälligkeitsdatum = document.getElementById("textFälligkeitsdatum").value;
+    var erlediger = document.getElementById("textErlediger").value;
+    
+    var jsonToSend = '{"name" : "' + itemname + '","preis" : "' + preis + '","fälligkeitsdatum" : "' + fälligkeitsdatum + '","erlediger" : "' + erlediger + '"}';
+    
+    $.ajax({
+        url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/' + listId + '/items/',
+        type: 'POST',
+        data: jsonToSend,
+        contentType: 'application/json',
+        success:function(result) {
+        }
+    });
+}
                 
