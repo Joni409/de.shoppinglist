@@ -6,7 +6,7 @@
 
 package de.datev.services.restful.service;
 
-import de.datev.services.models.UserControler;
+import de.datev.services.models.UserController;
 import de.datev.services.models.UserModel;
 import java.sql.ResultSet;
 import javax.ws.rs.GET;
@@ -27,7 +27,7 @@ public class UserBoundary
     @Produces({MediaType.APPLICATION_JSON})
     public Response getList(@PathParam("UserID") int id)
     {
-        UserModel result = UserControler.getUser(id);
+        UserModel result = UserController.getUser(id);
         return Response.status(Response.Status.OK).entity(result).build();
     }
 }
