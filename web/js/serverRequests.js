@@ -60,15 +60,12 @@ function CheckItemDate()
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/4/items/?function=checkNotifications", function(result){
         $.each(result, function(i, item){
             
-            
-            $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + item.liste, function(list){
-            
-                var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + list.id + ")\">Item: <kbd>" +  list.name + "</kbd> in der Liste: <kbd>" + item.name + "</kbd> ist abgelaufen</a></li>";
-                $("#Erinnerungen").append(newItem);
-                Counter = Counter + 1;
-                $("#ErinnerungCount").empty();
-                $("#ErinnerungCount").append(Counter);
-            });
+            var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + item.listenId + ")\">Item: <kbd>" +  item.itemName + "</kbd> in der Liste: <kbd>" + item.listenname + "</kbd> ist abgelaufen</a></li>";
+            $("#Erinnerungen").append(newItem);
+            Counter = Counter + 1;
+            $("#ErinnerungCount").empty();
+            $("#ErinnerungCount").append(Counter);
+
         });
     });
 }
