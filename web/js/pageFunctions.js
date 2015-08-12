@@ -104,7 +104,10 @@ function LoadListTable(id)
 function ListDelete(id)
 {
     //Löschen
-    alert("Löschen der Liste mit der ID: " + id);
+    $.ajax({
+        url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/' + id,
+        type: 'DELETE',
+    });
 }
 
 
