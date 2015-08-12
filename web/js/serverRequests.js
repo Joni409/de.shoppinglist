@@ -78,7 +78,6 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
         var element = document.getElementById(itemId + cellName);
         
         var jsonToSend = '{"' + jsonName + '":"' + element.innerHTML + '"}';
-        alert(jsonToSend);
         
         $.ajax({
         url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
