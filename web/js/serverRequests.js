@@ -63,7 +63,9 @@ function CheckItemDate()
             
                 var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + list.id + ")\">Item: <kbd>" +  list.name + "</kbd> in der Liste: <kbd>" + item.name + "</kbd> ist abgelaufen</a></li>";
                 $("#Erinnerungen").append(newItem);
-
+                Counter = Counter + 1;
+                $("#ErinnerungCount").empty();
+                $("#ErinnerungCount").append(Counter);
             });
         });
     });
@@ -86,6 +88,4 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
         });
     }
 }
-                Counter = Counter + 1;
-                $("#ErinnerungCount").empty();
-                $("#ErinnerungCount").append(Counter);
+                
