@@ -51,7 +51,9 @@ function CheckItemDate()
 {
     CurrentDate = new Date();
     var Counter = 0;
-
+    
+    $("#Erinnerungen").empty();
+    
     $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/4/items/?function=checkNotifications", function(result){
         $.each(result, function(i, item){
             
