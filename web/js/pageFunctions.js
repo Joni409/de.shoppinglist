@@ -18,17 +18,56 @@ function AddItemToListContainer(id, name, description, color)
     $("#ListContainer").append(newListItem);
 }
 
-function AddElementsToListTable(id, name, parentID)
+function AddElementsToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
+{    
+    var newTableRow = document.createElement("tr");
+    CreateListElementInputTypeCheckbox(gekauft, id, newTableRow)
+    CreateListElement(name, id, newTableRow, 'name');
+    CreateListElement(preis, id, newTableRow, 'preis');
+    CreateListElement(einkaufsdatum, id, newTableRow, 'einkaufsdatum');
+    CreateListElement(erlediger, id, newTableRow, 'erlediger');
+
+    document.getElementById("ElementsOfListTable").appendChild(newTableRow);
+}
+
+function CreateListElementInputTypeCheckbox(checked, elementId, newTableRow)
 {
-    var newTableItem =  '<tr>'+
-                            '<td><input type="checkbox" onchange="UpdateListDataOnServer('+id+','+parentID+')"></td>'+
-                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')">' +name+ '</div></td>'+
-                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')">0,00</div></td>'+ 
-                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')"></div></td>'+
-                            '<td><div contenteditable onblur="UpdateListDataOnServer('+id+','+parentID+')"></div></td>'+
-                        '</tr>';
-                
-    $("#ElementsOfListTable").append(newTableItem);
+    var newTableData = document.createElement("td");
+    var newTableInputType = document.createElement('input');
+    
+    newTableInputType.type = "checkbox";
+    
+    if(checked === "0")
+    {
+        newTableInputType.checked = false;
+    }
+    else
+    {
+        newTableInputType.checked = true;
+    }
+    
+    var newId= "";
+    newTableInputType.setAttribute('contenteditable', 'true'); 
+    newTableInputType.id = newId.concat(elementId,checked);
+    newTableInputType.setAttribute('onchange', 'UpdateListDataOnServer(\''+ elementId + "\', \'" + checked + '\', \' gekauft \')');
+   
+    
+    newTableData.appendChild(newTableInputType);
+    newTableRow.appendChild(newTableData);
+}
+
+function CreateListElement(elementName, elementId, newTableRow, jsonName)
+{
+    var newTableData = document.createElement("td");
+    var newTableText = document.createTextNode(elementName);
+    
+    var newId= "";
+    newTableData.setAttribute('contenteditable', 'true');
+    newTableData.setAttribute('onblur', 'UpdateListDataOnServer(\''+ elementId + "\', \'" + elementName + '\'' + "," + '\'' + jsonName + '\')');
+    newTableData.id = newId.concat(elementId,elementName);
+    
+    newTableData.appendChild(newTableText);
+    newTableRow.appendChild(newTableData);
 }
 
 var deleteTable = false;

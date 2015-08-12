@@ -49,14 +49,13 @@ public class ItemCollectionBoundary {
     
     @POST
     @Consumes({"application/json"})
-    public void createItem(String json) throws JSONException
+    public void createItem(String json, @PathParam("ListenID") String id) throws JSONException
     {
         JSONObject jsonData = new JSONObject(json);
         String name = jsonData.getString("name");
-        String einkaufsdatum = jsonData.getString("einkaufsdatum");
+        String fälligkeitsdatum = jsonData.getString("fälligkeitsdatum");
         String preis = jsonData.getString("preis");
-        String gekauft = jsonData.getString("gekauft");
         String erlediger = jsonData.getString("erlediger");
-        ItemController.createItem(name, einkaufsdatum, preis, gekauft, erlediger);
+        ItemController.createItem(name, fälligkeitsdatum, preis, "0", erlediger, id);
     }
 }
