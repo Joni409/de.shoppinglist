@@ -33,6 +33,16 @@ public class ItemModel {
         this.Name = name;
     }
     
+    private int Liste;
+
+    public int getListe() {
+        return Liste;
+    }
+    
+    public void setListe(int liste){
+        this.Liste = liste;
+    }
+    
     private String Einkaufsdatum;
 
     public String getEinkaufsdatum() {
@@ -73,16 +83,28 @@ public class ItemModel {
         this.Erlediger = erlediger;
     }
     
+    private boolean Notification;
+
+    public boolean getNotification() {
+        return Notification;
+    }
+    
+    public void setNotification(boolean notification){
+        this.Notification = notification;
+    }
+    
     public ItemModel(){
         
     }
     
-    public ItemModel(int id, String name, String einkaufsdatum, String preis, String gekauft, String erlediger){
+    public ItemModel(int id, String name, int liste, String einkaufsdatum, String preis, String gekauft, String erlediger, boolean notification){
         this.ID = id;
         this.Name = name;
+        this.Liste = liste;
         this.Einkaufsdatum = einkaufsdatum;
         this.Preis = preis;
         this.Gekauft = gekauft;
         this.Erlediger = erlediger;
+        this.Notification = notification;
     }
 }

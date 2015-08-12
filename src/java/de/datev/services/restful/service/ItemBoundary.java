@@ -48,11 +48,6 @@ public class ItemBoundary {
     @Consumes({"application/json"})
     public Response UpdateItem(String json, @PathParam("ItemID") String id) throws JSONException{
         JSONObject jsonData = new JSONObject(json);
-        /*String name = jsonData.getString("name");
-        String einkaufsdatum = jsonData.getString("fälligkeitsdatum");
-        String preis = jsonData.getString("preis");
-        String gekauft = jsonData.getString("gekauft");
-        String erlediger = jsonData.getString("erlediger");*/
         HashMap<String, String> updateData = new HashMap<String, String>();
         
         Iterator iteratorKeys = jsonData.keys();
