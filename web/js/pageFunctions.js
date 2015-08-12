@@ -18,9 +18,9 @@ function AddItemToListContainer(id, name, description, color)
     $("#ListContainer").append(newListItem);
 }
 
-function AddElementsToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
-{    
-    var newTableRow = document.createElement("tr");
+function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
+{        
+    var newTableRow = document.createElement("tr");   
     CreateListElementInputTypeCheckbox(gekauft, id, newTableRow)
     CreateListElement(name, id, newTableRow, 'name');
     CreateListElement(preis, id, newTableRow, 'preis');
@@ -37,14 +37,7 @@ function CreateListElementInputTypeCheckbox(checked, elementId, newTableRow)
     
     newTableInputType.type = "checkbox";
     
-    if(checked === "0")
-    {
-        newTableInputType.checked = false;
-    }
-    else
-    {
-        newTableInputType.checked = true;
-    }
+    newTableInputType.checked = checked;
     
     var newId= "";
     newTableInputType.setAttribute('contenteditable', 'true'); 
@@ -106,9 +99,6 @@ function ListDelete(id)
     //Löschen
     alert("Löschen der Liste mit der ID: " + id);
 }
-
-
-
 
 function LoadIndex()
 {
