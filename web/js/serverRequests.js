@@ -35,15 +35,35 @@ function LoadSpecificServerList(id)
 
 function CopyToClipboard(id)
 {    
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
-        var text = result.name + " \r\n";
-        
-        $.each(result.items, function(index, element) {
-            text = text + element.itemName + " \r\n";
-        });
-        
-        window.clipboardData.setData('Text', text);    
-    });
+//    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) {
+//        var text = result.name + " \r\n";
+//        //•
+//        $.each(result.items, function(index, element) {
+//            text = text + element.itemName + " \r\n";
+//        });
+//        
+//        window.clipboardData.setData('Text', text);    
+//    });
+$(document).ready(function(){
+
+ $('#copy-description').zclip({
+ path:'js/ZeroClipboard.swf',
+ copy:"asdf"
+ });
+
+ // The link with ID "copy-description" will copy
+ // the text of the paragraph with ID "description"
+
+// $('a#copy-dynamic').zclip({
+// path:'js/ZeroClipboard.swf',
+// copy:function(){return $('input#dynamic').val();}
+// });
+
+ // The link with ID "copy-dynamic" will copy the current value
+ // of a dynamically changing input with the ID "dynamic"
+
+});
+
 }
 
 function CheckItemDate()
