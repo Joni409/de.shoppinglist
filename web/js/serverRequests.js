@@ -1,18 +1,18 @@
 function LoadConfiguration()
 {
     $.ajaxSetup({
-        headers:{
-            "X-Auth" : "1234"
-        }       
+        headers: {
+            "X-Auth": "1234"
+        }
     });
 }
 
 function LoadAllServerLists()
 {
     $("#ListContainer").empty();
-    
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(result){
-        $.each(result, function(index, element){
+
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(result) {
+        $.each(result, function(index, element) {
             AddItemToListContainer(element.id, element.name, element.beschreibung, element.color);
         });
     });
@@ -20,14 +20,17 @@ function LoadAllServerLists()
 
 function LoadSpecificServerList(id)
 {
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result){
-        $(document).ready(function(){
-            $("#ListeHeadline").text(result.name); 
-            $.each(result.items, function(index, element){
-                AddElementsToListTable(element.id, element.name, id);
-            });
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/" + id, function(result) 
+    {
+        window.readyToChange = false;
+        $("#ListeHeadline").text(result.name);
+        $.each(result.items, function(index, element) 
+        {
+            AddElementsToListTable(element.id, element.name, element.preis, element.gekauft, element.einkaufsdatum, element.erlediger);
         });
+        window.readyToChange = true;
     });
+
 }
 
 function CopyToClipboard(id)
@@ -36,9 +39,9 @@ function CopyToClipboard(id)
         var text = "";
         text = result.name + " \r\n";
         $.each(result.items, function(index, element) {
-            text = text + element.name+" \r\n";
+            text = text + element.name + " \r\n";
         });
-            window.clipboardData.setData('Text', text);
+        window.clipboardData.setData('Text', text);
     });
 }
 
@@ -47,13 +50,13 @@ function CheckItemDate()
     CurrentDate = new Date();
     var Counter = 0;
 
-    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list){
-        $.each(list, function(i, field){
+    $.getJSON("http://localhost:8080/de.datev.shoppinglist/api/lists/", function(list) {
+        $.each(list, function(i, field) {
             $.each(field.items, function(x, item)
             {
                 var ItemAlert = false;
                 var felder = item.einkaufsdatum.split('-', 3);
-                
+
                 var ItemMonth = parseInt(felder[1]);
                 var ItemDay = parseInt(felder[2].split(' ', 1));
                 var ItemYear = parseInt(felder[0]);
@@ -78,7 +81,7 @@ function CheckItemDate()
                 if (ItemAlert && item.gekauft === "0")
                 {
                     Counter = Counter + 1;
-                    var newItem =   "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" +  item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
+                    var newItem = "<li><a href=\"#\" onclick=\"LoadListTable(" + field.id + ")\">Item: <kbd>" + item.name + "</kbd> in der Liste: <kbd>" + field.name + "</kbd> ist älter als zwei Tage</a></li>";
                     $("#Erinnerungen").append(newItem);
                     $("#ErinnerungCount").empty();
                     $("#ErinnerungCount").append(Counter);
@@ -88,10 +91,20 @@ function CheckItemDate()
     });
 }
 
-function UpdateListDataOnServer(id, parentID)
+function UpdateListDataOnServer(itemId, cellName, jsonName)
 {
-    if(document.readyState === "complete")
-    {
-        alert($(this).parent()); //TODO Update aufrufen
-    }    
+    if (window.readyToChange === true)
+    {        
+        var element = document.getElementById(itemId + cellName);
+        
+        var jsonToSend = '{"' + jsonName + '":"' + element.innerHTML + '"}';
+        alert(jsonToSend);
+        
+        $.ajax({
+        url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
+        type: 'PUT',
+        data: jsonToSend,
+        contentType: 'application/json'
+        });
+    }
 }
