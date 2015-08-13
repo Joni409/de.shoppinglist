@@ -24,7 +24,7 @@ public class AuthInterceptor implements ContainerRequestFilter
 //
 //        if ((headerValue == null) || (!headerValue.equals("1234")))
 //        {
-//                keinen Auth-header gefunden oder falscher Wert in Auth-header
+////                keinen Auth-header gefunden oder falscher Wert in Auth-header
 //                ResponseBuilder responseBuilder = Response.status(Status.EXPECTATION_FAILED);
 //                Response response = responseBuilder.build();
 //                context.abortWith(response);

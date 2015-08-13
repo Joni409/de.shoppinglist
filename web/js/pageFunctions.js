@@ -88,8 +88,8 @@ function ListButtonAction(loadTable, id){
 function LoadListTable(id)
 {
     window.currentid = id;
-    $("#MainContainer").empty();
-    $("#MainContainer").load("pages/itemList.html", function() {
+    $("#main-content").empty();
+    $("#main-content").load("pages/itemList.html", function() {
         LoadSpecificServerList(id);
     });   
 }
@@ -99,15 +99,15 @@ function ListDelete(id)
     //Löschen
     $.ajax({
         url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/' + id,
-        type: "DELETE",
+        type: "DELETE"
     });
     LoadAllServerLists();
 }
 
 function LoadIndex()
 {
-    $("#MainContainer").empty();
-    $("#MainContainer").load("index.html #MainContainer > *", function(){
+    $("#main-content").empty();
+    $("#main-content").load("pages//startsite.html", function(){
         LoadAllServerLists();
     });
 }

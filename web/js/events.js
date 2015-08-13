@@ -37,6 +37,9 @@ function CreateNewServerList(name, beschreibung, color)
         url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
         type: "POST",
         data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
-        contentType: "application/json"
+        contentType: "application/json",
+        success:function() {
+            LoadIndex();
+        }
     });
 }

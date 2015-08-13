@@ -1,6 +1,12 @@
 function LoadConfiguration()
 {
     $.ajaxSetup({
+        error: function(request) {
+            $("#main-content").load("pages/errorpage.html", function() {
+                $("#errorTitle").text('Oops, ' + request.status);
+                $("#errorText").text(request.statusText);
+            });
+        },
         headers: {
             "X-Auth": "1234"
         }
