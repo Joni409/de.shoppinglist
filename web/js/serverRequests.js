@@ -74,6 +74,7 @@ function CheckItemDate()
     });
 }
 
+//<td><input type="checkbox" contenteditable="true" onchange="UpdateListDataOnServer('6', 'true', 'gekauft')" id="6true"></td>
 function UpdateListDataOnServer(itemId, cellName, jsonName)
 {
     if (window.readyToChange === true)
@@ -100,8 +101,37 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
             url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
             type: 'PUT',
             data: jsonToSend,
-            contentType: 'application/json'
+            contentType: 'application/json',
+            success: function() {
+                CheckItemDate();
+                if (name === "gekauft")
+                {
+                    LineThroughTableLine(itemId, cellName);
+                }
+            }
         });
+    }
+}
+
+function LineThroughTableLine(itemId, throughLine){
+    var tableLineCheckbox = $("#" + itemId + throughLine);
+    
+    if (throughLine == "true") {
+        tableLineCheckbox.off();
+        tableLineCheckbox.change(function() {
+            UpdateListDataOnServer(itemId, 'false', 'gekauft');
+        });
+        tableLineCheckbox.attr('id', (itemId +'false'));
+        $("#row-" + itemId).css("text-decoration", "");
+    }
+    
+    if(throughLine == "false"){
+        tableLineCheckbox.off();
+        tableLineCheckbox.change(function() {
+            UpdateListDataOnServer(itemId, 'true', 'gekauft');
+        });
+        tableLineCheckbox.attr('id', (itemId +'true'));
+        $("#row-" + itemId).css("text-decoration", "line-through");
     }
 }
 
