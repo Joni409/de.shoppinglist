@@ -7,8 +7,8 @@
         <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
         <link href="css/myStyles.css" type="text/css" rel="stylesheet">
     </head>
+    
     <body>
-        
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
@@ -22,7 +22,6 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <span class="glyphicon glyphicon-bell"></span>
@@ -36,18 +35,19 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">[Username] <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                    <li><a href="#" data-toggle="modal" data-target="#AnmeldenModal">Anmelden</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#RegistrierenModal">Registrieren</a></li>
-                                    <li><a href="#">TODO: weitere Funktionen</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#AnmeldenModal">Anmelden</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#RegistrierenModal">Registrieren</a></li>
+                                <li><a href="#">TODO: weitere Funktionen</a></li>
                             </ul>
                         </li>
-                        
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- END-OF Navigation -->
         
+        
+        <!-- MainContainer -->
         <div class="container-fluid" id="MainContainer">
             <h1 class="page-header myHeader">Meine Einkaufslisten</h1>
             
@@ -69,8 +69,9 @@
                 </div>
             </div>
         </div>
+        <!-- END-OF MainContainer -->
 
-        <!--Modales Fenster-->
+        <!-- Modales Fenster -->
         <div class="modal fade" id="AnmeldenModal" tabindex="-1" role="dialog" aria-labelledby="AnmeldenModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -80,13 +81,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-							<label for="txtEmail">E-Mail</label>
-							<input type="text" class="form-control" id="txtEmail" />
-						</div>
-						<div class="form-group">
-							<label for="txtPassword">Passwort</label>
-							<input type="password" class="form-control" id="txtPassword" />
-						</div>
+                            <label for="txtEmail">E-Mail</label>
+                            <input type="text" class="form-control" id="txtEmail" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtPassword">Passwort</label>
+                            <input type="password" class="form-control" id="txtPassword" />
+                        </div>
                     </div>
                     <div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
@@ -95,6 +96,7 @@
                 </div>
             </div>
         </div>
+        <!-- END-OF Modales Fenster -->
 		
 	<div class="modal fade" id="RegistrierenModal" tabindex="-1" role="dialog" aria-labelledby="RegistrierenModalLabel">
             <div class="modal-dialog" role="document">
@@ -104,28 +106,28 @@
                         <h4 class="modal-title" id="RegistrierenModalLabel">Anmelden</h4>
                     </div>
                     <div class="modal-body">
-						<div class="form-group">
-							<label for="txt-reg-Name">Name</label>
-							<input type="text" class="form-control" id="txt-reg-Name" />
-						</div>
-                                                <div class="form-group">
-							<label for="txt-reg-Email">E-Mail</label>
-							<input type="text" class="form-control" id="txt-reg-Email" />
-						</div>
-						<div class="form-group">
-							<label for="txt-reg-Password">Passwort</label>
-							<input type="password" class="form-control" id="txt-reg-Password" />
-						</div>
-						<div class="form-group">
-							<label for="txt-reg-Password2">Passwort wiederholen</label>
-							<input type="password" class="form-control" id="txt-reg-Password2" />
-						</div>
-						<div class="checkbox">
-							<label for="reg-check">
-								<input type="checkbox" id="reg-check">
-								Ich stimme den <a href="#">AGB</a> zu
-							</label>
-						</div>
+                        <div class="form-group">
+                                <label for="txt-reg-Name">Name</label>
+                                <input type="text" class="form-control" id="txt-reg-Name" />
+                        </div>
+                        <div class="form-group">
+                                <label for="txt-reg-Email">E-Mail</label>
+                                <input type="text" class="form-control" id="txt-reg-Email" />
+                        </div>
+                        <div class="form-group">
+                                <label for="txt-reg-Password">Passwort</label>
+                                <input type="password" class="form-control" id="txt-reg-Password" />
+                        </div>
+                        <div class="form-group">
+                                <label for="txt-reg-Password2">Passwort wiederholen</label>
+                                <input type="password" class="form-control" id="txt-reg-Password2" />
+                        </div>
+                        <div class="checkbox">
+                                <label for="reg-check">
+                                        <input type="checkbox" id="reg-check">
+                                        Ich stimme den <a href="#">AGB</a> zu
+                                </label>
+                        </div>
                     </div>
                     <div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
@@ -135,7 +137,7 @@
             </div>
         </div>
 		
-		
+	<!-- Modal Neue Listen hinzufügen -->
 	<div class="modal fade" id="AddItem" tabindex="-1" role="dialog" aria-labelledby="AddItemModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -200,8 +202,9 @@
                 </div>
             </div>
         </div>
+        <!-- END-OF Modal Neue Listen hinzufügen -->
 
-
+        <!-- Fußleiste Kontakt -->
         <nav class="navbar navbar-inverse navbar-fixed-bottom hidden-xs hidden-sm">
             <div class="container-fluid">
                 <div class="navbar-collapse">
@@ -224,10 +227,10 @@
                 </div>
             </div>
         </nav>
+        <!-- END-OF Fußleiste Kontakt -->
 
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/myJS.js"></script> 
         <script src="js/pageFunctions.js"></script>
         <script src="js/serverRequests.js"></script>
         <script src="js/events.js"></script>
