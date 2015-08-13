@@ -1,9 +1,11 @@
 <h1 class="page-header myHeader" id="ListeHeadline">Meine Einkaufslisten</h1>
 <div class="container-fluid"> <!-- Container zum einrücken -->
+    
+    <!-- Fußleiste -->
     <table class="table table-responsive table-hover">
         <thead>
             <tr>
-                <th></th>
+                <th>Erledigt</th>
                 <th>Itemname</th>
                 <th>Preis</th>
                 <th>Fällig am</th>
@@ -25,7 +27,10 @@
             </tr>
         </tfoot>
     </table>
-
+    <!-- END-OF Fußleiste -->
+    
+    
+    <!-- Button auswahlmenü -->
     <div>
         <span data-toggle="tooltip" data-placement="top" title="Neues Item hinzufügen">
             <a class="btn btn-primary itemListActionBtn" href="#" data-toggle="modal" data-target="#AddNewItemToList">
@@ -47,7 +52,9 @@
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
         </a>-->
     </div>
+    <!-- END-OF Button auswahlmenü -->
 
+    <!-- Modalfenster Benutzerfreigaben -->
     <div class="modal fade" id="UserPermissionModal" tabindex="-1" role="dialog" aria-labelledby="UserPermissionModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -95,7 +102,9 @@
             </div>
         </div>
     </div>
+    <!-- END-OF Modalfenster Benutzerfreigaben -->
 
+    <!-- Modalfenster Neue Item hinzufügen -->
     <div class="modal fade" id="EditItemModal" tabindex="-1" role="dialog" aria-labelledby="EditItemModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -113,7 +122,9 @@
             </div>
         </div>
     </div>
+    <!-- END-OF Modalfenster Neue Item hinzufügen -->
 
+    <!-- Modalfenster Neue Item hinzufügen -->
     <div id="AddNewItemToList" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -146,7 +157,9 @@
             </div>
         </div>
     </div>
-</div>
+    <!-- END-OF Modalfenster Neue Item hinzufügen -->
+</div> <!-- END-OF Container zum einrücken -->
+
 
 <script>
     $(".check-user").on("click", function() {
