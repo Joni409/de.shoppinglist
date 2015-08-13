@@ -73,8 +73,22 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
     if (window.readyToChange === true)
     {
         var element = document.getElementById(itemId + cellName);
+        var newValue = element.innerHTML;
 
-        var jsonToSend = '{"' + jsonName + '":"' + element.innerHTML + '"}';
+        var name = jsonName;
+        name = name.trim();
+
+        if (name === "gekauft")
+        {
+            newValue = "1"; 
+            
+            if(cellName == "true")
+            {
+                newValue = "0";
+            }
+        }
+        
+        var jsonToSend = '{"' + jsonName + '":"' + newValue + '"}';
 
         $.ajax({
             url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
