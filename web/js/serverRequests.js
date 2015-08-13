@@ -102,6 +102,7 @@ function AddNewItemToList()
         data: jsonToSend,
         contentType: 'application/json',
         success:function(result) {
+            $(this).modal('hide');
         }
     });
 }
