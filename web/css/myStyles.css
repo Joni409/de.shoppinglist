@@ -57,6 +57,11 @@ input::-moz-focus-inner {
     color:red;
 }
 
+.itemListActionBtn{
+    margin: 0.5em;
+    width: 10%;
+}
+
 #ErinnerungCount{
     margin-top: -15px;
     background: red;
