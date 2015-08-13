@@ -28,10 +28,6 @@ $("#AddItemButton").click(function()
         choosedColor = $('input[name=optradio]:checked', '#itemColor').val();
     }
     
-    //Neues Element an den Server senden und dann neu laden
-    alert(name);
-    alert(description);
-    alert(choosedColor);
     CreateNewServerList(name, description, choosedColor);
 });
 
