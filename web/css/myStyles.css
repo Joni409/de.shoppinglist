@@ -123,3 +123,15 @@ input::-moz-focus-inner {
     border-width:0px;
     border:none;
 }
+
+.btn-itemCount{
+    background: none;
+    border-width:0px;
+    border:none;
+}
+
+.input-items{
+    border-width:0px;
+    border:none;
+    width: 50px;
+}
