@@ -1,159 +1,151 @@
-<div class="page-header myHeader">
-    <h1 id="ListeHeadline"></h1>
-</div>
+<h1 class="page-header myHeader" id="ListeHeadline"></h1>
+<div class="container-fluid"> <!-- Container zum einrücken -->
 
-<table class="table table-responsive table-hover">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Itemname</th>
-            <th>Preis</th>
-            <th>Fällig am</th>
-            <th>Erlediger</th>
-        </tr>
-    </thead>
-    <tbody id="ElementsOfListTable">
-        <!-- Alle Elemente einer Liste werden hier generiert -->
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>
-                <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#AddNewItemToList">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </a>
-            </th>
-            <th>Gesamt</th>
-            <th>0,00</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </tfoot>
-</table>
+    <!-- Fußleiste -->
+    <table class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Erledigt</th>
+                <th>Itemname</th>
+                <th>Preis</th>
+                <th>Fällig am</th>
+                <th>Erlediger</th>
+                <th>
+            </tr>
+        </thead>
+        <tbody id="ElementsOfListTable">
+            <!-- Alle Elemente einer Liste werden hier generiert -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Gesamt</th>
+                <th>0,00</th>
+                <th></th>
+                <th></th>                
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+    <!-- END-OF Fußleiste -->
 
-<div>
-    <a class="btn btn-primary glyphiconButton pull-right" href="#" onclick="LoadIndex()" data-toggle="tooltip" data-placement="top" title="Zurück zur Startseite">
-        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-    </a>
-    
-    <span data-toggle="tooltip" data-placement="top" title="Benutzer freigeben">
-        <a class="btn btn-primary glyphiconButton pull-right" href="#" data-toggle="modal" data-target="#UserPermissionModal">
-            <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+
+    <!-- Button auswahlmenü -->
+    <div>
+        <span data-toggle="tooltip" data-placement="top" title="Neues Item hinzufügen">
+            <a class="btn btn-primary itemListActionBtn" href="#" data-toggle="modal" data-target="#AddNewItemToList">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </a>
+        </span>
+
+        <a class="btn btn-primary itemListActionBtn pull-right" href="#" onclick="LoadIndex()" data-toggle="tooltip" data-placement="top" title="Zurück zur Startseite">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         </a>
-    </span>
-    
-    <a class="btn btn-primary glyphiconButton pull-right" id="copy-description" href="#" onclick="CopyToClipboard(window.currentid)">
-        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    </a>
-</div>
 
-<div class="modal fade" id="UserPermissionModal" tabindex="-1" role="dialog" aria-labelledby="UserPermissionModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="UserPermissionModal">Einkaufsliste freigeben</h4>
+        <span data-toggle="tooltip" data-placement="top" title="Benutzerverwaltung">
+            <a class="btn btn-primary itemListActionBtn pull-right" href="#" data-toggle="modal" data-target="#UserPermissionModal">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+            </a>
+        </span>
+        <!-- Auskommentiert um Fehler zu vermeiden!
+        <a class="btn btn-primary itemListActionBtn pull-right" href="#" onclick="CopyToClipboard(window.currentid)" data-toggle="tooltip" data-placement="top" title="In die Zwischenablage kopieren">
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+        </a>-->
+    </div>
+    <!-- END-OF Button auswahlmenü -->
+
+    <!-- Modalfenster Benutzerfreigaben -->
+    <div class="modal fade" id="UserPermissionModal" tabindex="-1" role="dialog" aria-labelledby="UserPermissionModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="UserPermissionModal">Einkaufsliste freigeben</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <label class="modal-subline">Benutzer hinzufügen</label>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="userName" placeholder="Benutzername">
+                            </div>
+                            <div class="col-sm-2">
+                                <a href="#" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span></a>
+                            </div>
+                        </div>
+
+                        <label class="modal-subline">Benutzer auswählen</label>
+                        <ul class="list-group">
+                            <li class="list-group-item checkbox">
+                                <label class="check-user"><input type="checkbox" class="checkbox-user">Max Mustermann</label>
+                                <span class="glyphicon glyphicon-trash pull-right btn-trash">
+                            </li>
+                            <li class="list-group-item checkbox">
+                                <label class="check-user"><input type="checkbox" class="checkbox-user">John Doe</label>
+                                <span class="glyphicon glyphicon-trash pull-right btn-trash">
+                            </li>
+                            <li class="list-group-item checkbox">
+                                <label class="check-user"><input type="checkbox" class="checkbox-user">Pixel</label>
+                                <span class="glyphicon glyphicon-trash pull-right btn-trash">
+                            </li>
+                            <li class="list-group-item checkbox">
+                                <label class="check-user"><input type="checkbox" class="checkbox-user">Pixel2</label>
+                                <span class="glyphicon glyphicon-trash pull-right btn-trash">
+                            </li>
+                        </ul>  
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                    <button id="EditListButton" type="button" class="btn btn-primary" data-dismiss="modal">Benutzer freigeben</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <form class="form-horizontal" role="form">
-                    <label class="modal-subline">Benutzer hinzufügen</label>
+        </div>
+    </div>
+    <!-- END-OF Modalfenster Benutzerfreigaben -->
+
+    <div id="AddNewItemToList" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Item in die Liste hinzufügen</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="userName" placeholder="Benutzername">
-                        </div>
-                        <div class="col-sm-2">
-                            <a href="#" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span></a>
-                        </div>
+                        <label for="textItemname">Itemname</label>
+                        <input type="text" class="form-control" id="textItemname" />
                     </div>
-
-                    <label class="modal-subline">Benutzer auswählen</label>
-                    <ul class="list-group">
-                        <li class="list-group-item checkbox">
-                            <label class="check-user"><input type="checkbox" class="checkbox-user">Max Mustermann</label>
-                            <span class="glyphicon glyphicon-trash pull-right btn-trash">
-                        </li>
-                        <li class="list-group-item checkbox">
-                            <label class="check-user"><input type="checkbox" class="checkbox-user">John Doe</label>
-                            <span class="glyphicon glyphicon-trash pull-right btn-trash">
-                        </li>
-                        <li class="list-group-item checkbox">
-                            <label class="check-user"><input type="checkbox" class="checkbox-user">Pixel</label>
-                            <span class="glyphicon glyphicon-trash pull-right btn-trash">
-                        </li>
-                        <li class="list-group-item checkbox">
-                            <label class="check-user"><input type="checkbox" class="checkbox-user">Pixel2</label>
-                            <span class="glyphicon glyphicon-trash pull-right btn-trash">
-                        </li>
-                    </ul>  
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-                <button id="EditListButton" type="button" class="btn btn-primary" data-dismiss="modal">Benutzer freigeben</button>
+                    <div class="form-group">
+                        <label for="textPreis">Preis</label>
+                        <input type="text" class="form-control" id="textPreis" />
+                    </div>
+                    <div class="form-group">
+                        <label for="textFälligkeitsdatum">Fälligkeitsdautm</label>
+                        <input id="textFälligkeitsdatum" type="text" class="form-control" onclick='onDateTimePickerClick("textFälligkeitsdatum")'>
+                    </div>
+                    <div class="form-group">
+                        <label for="textErlediger">Erlediger</label>
+                        <input type="text" class="form-control" id="textErlediger" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="AddButton" type="button" class="btn btn-primary" data-dismiss="modal" onclick="AddNewItemToList()">Hinzufügen</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="EditItemModal" tabindex="-1" role="dialog" aria-labelledby="EditItemModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="EditItemModalLabel">Eintrag bearbeiten</h4>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-                <button id="EditItemButton" type="button" class="btn btn-primary" data-dismiss="modal">Eintrag speichern</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="AddNewItemToList" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Item in die Liste hinzufügen</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="txt-reg-Name">Itemname</label>
-                    <input type="text" class="form-control" id="textItemname" />
-                </div>
-                <div class="form-group">
-                    <label for="txt-reg-Email">Preis</label>
-                    <input type="text" class="form-control" id="textPreis" />
-                </div>
-                <div class="form-group">
-                    <label for="txt-reg-Password">Fälligkeitsdautm</label>
-                    <input type="text" class="form-control" id="textFälligkeitsdatum" />
-                </div>
-                <div class="form-group">
-                    <label for="txt-reg-Password2">Erlediger</label>
-                    <input type="text" class="form-control" id="textErlediger" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="AddButton" type="button" class="btn btn-primary" data-dismiss="modal" onclick="AddNewItemToList()">Hinzufügen</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(".check-user").on("click", function() {
-        if ($(this).find(".checkbox-user").prop('checked')) {
-            $(this).parent().css("background-color", "#A9E2F3");
-        }
-        else {
-            $(this).parent().css("background-color", "");
-        }
-    });    
-</script>
-<script src="js/pageFunctions.js"></script>
-<script src="js/serverRequests.js"></script>
+    <script>
+        $(".check-user").on("click", function() {
+            if ($(this).find(".checkbox-user").prop('checked')) {
+                $(this).parent().css("background-color", "#A9E2F3");
+            }
+            else {
+                $(this).parent().css("background-color", "");
+            }
+        });
+    </script>
+    <script src="js/pageFunctions.js"></script>
+    <script src="js/serverRequests.js"></script>

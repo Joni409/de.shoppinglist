@@ -20,14 +20,14 @@ public class AuthInterceptor implements ContainerRequestFilter
     @Override
     public void filter (ContainerRequestContext context) throws IOException
     {
-//        String headerValue = context.getHeaderString("X-AUTH");
-//
-//        if ((headerValue == null) || (!headerValue.equals("1234")))
-//        {
+        String headerValue = context.getHeaderString("X-AUTH");
+
+        if ((headerValue == null) || (!headerValue.equals("1234")))
+        {
 //                keinen Auth-header gefunden oder falscher Wert in Auth-header
-//                ResponseBuilder responseBuilder = Response.status(Status.EXPECTATION_FAILED);
-//                Response response = responseBuilder.build();
-//                context.abortWith(response);
-//        }
+                ResponseBuilder responseBuilder = Response.status(Status.EXPECTATION_FAILED);
+                Response response = responseBuilder.build();
+                context.abortWith(response);
+        }
     }
 }

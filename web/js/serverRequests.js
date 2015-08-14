@@ -1,6 +1,12 @@
 function LoadConfiguration()
 {
     $.ajaxSetup({
+        error: function(request) {
+            $("#main-content").load("pages/errorpage.html", function() {
+                $("#errorTitle").text('Oops, ' + request.status);
+                $("#errorText").text(request.statusText);
+            });
+        },
         headers: {
             "X-Auth": "1234"
         }
@@ -68,13 +74,76 @@ function CheckItemDate()
     });
 }
 
+//<td><input type="checkbox" contenteditable="true" onchange="UpdateListDataOnServer('6', 'true', 'gekauft')" id="6true"></td>
 function UpdateListDataOnServer(itemId, cellName, jsonName)
 {
     if (window.readyToChange === true)
     {
         var element = document.getElementById(itemId + cellName);
+        var newValue = element.innerHTML;
 
-        var jsonToSend = '{"' + jsonName + '":"' + element.innerHTML + '"}';
+        if (jsonName === "gekauft")
+        {
+            newValue = "1";
+
+            if (cellName === "true")
+            {
+                newValue = "0";
+            }
+        }
+
+        var jsonToSend = '{"' + jsonName + '":"' + newValue + '"}';
+
+        $.ajax({
+            url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
+            type: 'PUT',
+            data: jsonToSend,
+            contentType: 'application/json',
+            success: function() {
+                CheckItemDate();
+                if (jsonName === "gekauft")
+                {
+                    LineThroughTableLine(itemId, cellName);
+                }
+            }
+        });
+    }
+}
+
+function LineThroughTableLine(itemId, checked)
+{
+    if (checked === "true")
+    {
+        ChangeTableLineAttributes(itemId, 'false', "", checked);
+    }
+    else
+    {
+        ChangeTableLineAttributes(itemId, 'true', "line-through", checked);
+    }
+}
+
+function ChangeTableLineAttributes(itemId, newChecked, lineThroughAttribute, checked)
+{
+    var tableLineCheckbox = $("#" + itemId + checked);
+
+    tableLineCheckbox.off();
+    tableLineCheckbox.change(function()
+    {
+        UpdateListDataOnServer(itemId, newChecked, 'gekauft');
+    });
+    tableLineCheckbox.attr('id', (itemId + newChecked));
+    $("#row-" + itemId).css("text-decoration", lineThroughAttribute);
+}
+
+function updateDateTimeOnServer(itemId, cellName, jsonName)
+{
+    if (window.readyToChange)
+    {
+        var element = document.getElementById(itemId + cellName);
+
+        var dateToSend = GetDateToSend(element);
+
+        var jsonToSend = '{"' + jsonName + '":"' + dateToSend + '"}';
 
         $.ajax({
             url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
@@ -85,26 +154,58 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
     }
 }
 
+//TODO: nach dem refactoring wieder in ling ändern
+function GetDateToSend(element)
+{
+    var value = element.value;
+    var dateString = value.split(".");
+
+    var date = new Date(dateString[2], (dateString[1] - 1), dateString[0]);
+    date.setHours(2);
+    return date.toISOString();
+}
+
+function LineThroughTableLine(itemId, throughLine) {
+    var tableLineCheckbox = $("#" + itemId + throughLine);
+
+    if (throughLine == "true") {
+        tableLineCheckbox.off();
+        tableLineCheckbox.change(function() {
+            UpdateListDataOnServer(itemId, 'false', 'gekauft');
+        });
+        tableLineCheckbox.attr('id', (itemId + 'false'));
+        $("#row-" + itemId).css("text-decoration", "");
+    }
+
+    if (throughLine == "false") {
+        tableLineCheckbox.off();
+        tableLineCheckbox.change(function() {
+            UpdateListDataOnServer(itemId, 'true', 'gekauft');
+        });
+        tableLineCheckbox.attr('id', (itemId + 'true'));
+        $("#row-" + itemId).css("text-decoration", "line-through");
+    }
+}
+
 function AddNewItemToList()
-{    
+{
     var listId = window.currentid;
-    
+
     var itemname = document.getElementById("textItemname").value;
     var preis = document.getElementById("textPreis").value;
-    var fälligkeitsdatum = document.getElementById("textFälligkeitsdatum").value;
+    var fälligkeitsdatum = GetDateToSend(document.getElementById("textFälligkeitsdatum"));
     var erlediger = document.getElementById("textErlediger").value;
-    
+
     var jsonToSend = '{"name" : "' + itemname + '","preis" : "' + preis + '","fälligkeitsdatum" : "' + fälligkeitsdatum + '","erlediger" : "' + erlediger + '"}';
-    
+
     $.ajax({
         url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/' + listId + '/items/',
         type: 'POST',
         data: jsonToSend,
         contentType: 'application/json',
-        success:function(result) {
+        success: function(result) {
             LoadListTable(listId);
             $(".modal-backdrop").hide();
         }
     });
 }
-                

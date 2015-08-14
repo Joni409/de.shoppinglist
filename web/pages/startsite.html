@@ -1,0 +1,150 @@
+<h1 class="page-header myHeader">Meine Einkaufslisten</h1>
+
+<div id="ListContainer">
+    <!-- Listen vom Server werden hier eingefügt -->
+</div>
+<div>
+    <div class="col-xs-12 col-md-6 col-lg-3">
+        <a href="#" role="button" data-toggle="modal" data-target="#AddItem" class="btn btn-danger glyphiconButton btn-lg listButton" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>
+<div>
+    <div class="col-xs-12 col-md-6 col-lg-3">
+        <a href="#" role="button" onclick="LoadAllServerLists()" class="btn btn-default glyphiconButton btn-lg listButton" >
+            <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>
+
+<!--Modales Fenster-->
+<div class="modal fade" id="AnmeldenModal" tabindex="-1" role="dialog" aria-labelledby="AnmeldenModalLabel">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="AnmeldenModalLabel">Anmelden</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                                            <label for="txtEmail">E-Mail</label>
+                                            <input type="text" class="form-control" id="txtEmail" />
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="txtPassword">Passwort</label>
+                                            <input type="password" class="form-control" id="txtPassword" />
+                                    </div>
+        </div>
+        <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+            <button id="AnmeldenButton" type="button" class="btn btn-primary" data-dismiss="modal">Anmelden</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="RegistrierenModal" tabindex="-1" role="dialog" aria-labelledby="RegistrierenModalLabel">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="RegistrierenModalLabel">Anmelden</h4>
+        </div>
+        <div class="modal-body">
+                                    <div class="form-group">
+                                            <label for="txt-reg-Name">Name</label>
+                                            <input type="text" class="form-control" id="txt-reg-Name" />
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="txt-reg-Email">E-Mail</label>
+                                            <input type="text" class="form-control" id="txt-reg-Email" />
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="txt-reg-Password">Passwort</label>
+                                            <input type="password" class="form-control" id="txt-reg-Password" />
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="txt-reg-Password2">Passwort wiederholen</label>
+                                            <input type="password" class="form-control" id="txt-reg-Password2" />
+                                    </div>
+                                    <div class="checkbox">
+                                            <label for="reg-check">
+                                                    <input type="checkbox" id="reg-check">
+                                                    Ich stimme den <a href="#">AGB</a> zu
+                                            </label>
+                                    </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+            <button id="RegistrierenButton" type="button" class="btn btn-primary" data-dismiss="modal">Registrieren</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="AddItem" tabindex="-1" role="dialog" aria-labelledby="AddItemModalLabel">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="AddItemModalLabel">Neuer Einkaufszettel</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="NewItemName">Name</label>
+                <input type="text" class="form-control" placeholder="Name" id="NewItemName">
+            </div>
+            <div class="form-group">
+                <label for="NewItemDescription">Beschreibung</label>
+                <input type="text" class="form-control" placeholder="Beschreibung" id="NewItemDescription">
+            </div>
+            <div class="form-group">
+                <form role="form" id="itemColor">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label class="radio-inline btn btn-default">
+                            <input type="radio" name="optradio" value="btn-default">Weiß
+                        </label>
+
+
+                        <label class="radio-inline btn btn-primary">
+                            <input  type="radio" name="optradio" value="btn-primary">Dunkelblau
+                        </label>
+
+
+                        <label class="radio-inline btn btn-success">
+                            <input  type="radio" name="optradio" value="btn-success">Grün
+                        </label>
+
+
+                        <label class="radio-inline btn btn-info">
+                            <input  type="radio" name="optradio" value="btn-info">Hellblau
+                        </label>
+
+
+                        <label class="radio-inline btn btn-warning">
+                            <input  type="radio" name="optradio" value="btn-warning">Orange
+                        </label>
+
+
+                        <label class="radio-inline btn btn-danger">
+                            <input  type="radio" name="optradio" value="btn-danger">Rot
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="form-group">
+                <label for="ColorRandom">
+                    <input type="checkbox" name="zufällig" value="zufällig" id="ColorRandom">
+                    Zufällige Farbe
+                </label> 
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="AddItemButton" type="button" class="btn btn-primary" data-dismiss="modal" onclick="AddNewItemToListOverview()">Item hinzufügen</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+        </div>
+    </div>
+</div>
+</div>

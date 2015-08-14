@@ -4,7 +4,7 @@ $("#ColorRandom").change(function()
     $("#ColorSelection").prop('disabled', checked);
 });
 
-$("#AddItemButton").click(function()
+function AddNewItemToListOverview()
 {
     //Controls auslesen
     var name = $("#NewItemName").val();
@@ -28,12 +28,8 @@ $("#AddItemButton").click(function()
         choosedColor = $('input[name=optradio]:checked', '#itemColor').val();
     }
     
-    //Neues Element an den Server senden und dann neu laden
-    alert(name);
-    alert(description);
-    alert(choosedColor);
     CreateNewServerList(name, description, choosedColor);
-});
+}
 
 function CreateNewServerList(name, beschreibung, color)
 {
@@ -41,6 +37,33 @@ function CreateNewServerList(name, beschreibung, color)
         url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
         type: "POST",
         data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
-        contentType: "application/json"
+        contentType: "application/json",
+        success:function() {
+            LoadIndex();
+            $(".modal-backdrop").hide();
+        }
     });
+}
+
+function onDateTimePickerClick(id)
+{
+    if(window.readyToChange === true)
+    {
+    $('#' + id).datetimepicker({lang: 'de',
+        i18n: {
+            de: {
+                months: [
+                    'Januar', 'Februar', 'März', 'April',
+                    'Mai', 'Juni', 'Juli', 'August',
+                    'September', 'Oktober', 'November', 'Dezember',
+                ],
+                dayOfWeek: [
+                    "So.", "Mo", "Di", "Mi",
+                    "Do", "Fr", "Sa.",
+                ]
+            }
+        },
+        timepicker: false,
+        format: 'd.m.Y'});
+    }
 }

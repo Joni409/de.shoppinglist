@@ -1,0 +1,17 @@
+<div class="container-errorpage">
+    <div class="container-fluid center-block">
+        <div class="text-vertical-center">
+            <h1 class="page-header" id="errorTitle">Oops, es ist ein unerwarteter Fehler aufgetreten</h1>
+            <h3 id="errorText">Hier könnte eine Fehlermeldung stehen</h3>
+            <br>
+            <a class="btn btn-primary btn-lg" href="#" onclick="BackToStartsite()">Zur Startseite</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function BackToStartsite() {
+        $("#main-content").empty();
+        $("#main-content").load("pages/startsite.html");
+    }
+</script>
