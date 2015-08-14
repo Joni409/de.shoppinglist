@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,16 +21,23 @@ public class ShoppingListController {
         List<ShoppingListModel> result = new ArrayList<ShoppingListModel>();
 
         try {
-            ResultSet rs = Sql.select("shoppinglist");
-            while (rs.next()) {
-                ShoppingListModel currentShoppingList = Helper.FillShoppingListModel(rs);
+            
+            List<HashMap<String, String>> resultShoppinglistRows = SQLHelper.select("shoppinglist");
+            
+            for(HashMap<String, String> currentRow : resultShoppinglistRows)
+            {
+                ShoppingListModel currentShoppingList = SQLHelper.FillShoppingListModel(currentRow);
                 
-                ResultSet currentItemResult = Sql.select("item", "item_shoppinglist_fk", String.valueOf(currentShoppingList.getID()));
+                List<HashMap<String, String>> resultItemRows = SQLHelper.select("item", "item_shoppinglist_fk", String.valueOf(currentShoppingList.getID()));
+                
                 List<ItemModel> items = new ArrayList<>();
-                while(currentItemResult.next()){
-                    ItemModel currentItem = Helper.FillItemModel(currentItemResult);
+                
+                for(HashMap<String, String> currentItemRow : resultItemRows)
+                {
+                    ItemModel currentItem = SQLHelper.FillItemModel(currentItemRow);
                     items.add(currentItem);
                 }
+                
                 currentShoppingList.setItems(items);
                 
                 result.add(currentShoppingList);
@@ -45,16 +53,22 @@ public class ShoppingListController {
         ShoppingListModel result = null;
 
         try {
-            ResultSet rs = Sql.select("shoppinglist", "shoppinglist_id_pk", String.valueOf(id));
-            while (rs.next()) {
-                result = Helper.FillShoppingListModel(rs);
+            List<HashMap<String, String>> resultShoppinglistRows = SQLHelper.select("shoppinglist", "shoppinglist_id_pk", String.valueOf(id));
+            
+            for (HashMap<String, String> currentShoppinglistRow : resultShoppinglistRows)
+            {
+                result = SQLHelper.FillShoppingListModel(currentShoppinglistRow);
                 
-                ResultSet currentItemResult = Sql.select("item", "item_shoppinglist_fk", result.getID() + "");
+                List<HashMap<String, String>> resultItemRows = SQLHelper.select("item", "item_shoppinglist_fk", String.valueOf(result.getID()));
+                
                 List<ItemModel> items = new ArrayList<>();
-                while(currentItemResult.next()){
-                    ItemModel currentItem = Helper.FillItemModel(currentItemResult);
+                
+                for(HashMap<String, String> currentItemRow : resultItemRows)
+                {
+                    ItemModel currentItem = SQLHelper.FillItemModel(currentItemRow);
                     items.add(currentItem);
                 }
+                
                 result.setItems(items);
             }
         } catch (SQLException e) {
