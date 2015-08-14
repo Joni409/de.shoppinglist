@@ -147,6 +147,7 @@ function updateDateTimeOnServer(itemId, cellName, jsonName)
         var date = new Date(dateString[2], (dateString[1] - 1), dateString[0]);
         date.setHours(2);
         
+        //TODO: nach dem refactoring wieder in ling ändern
         var jsonToSend = '{"' + jsonName + '":"' + date.toISOString() + '"}';
 
         $.ajax({
