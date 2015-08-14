@@ -25,7 +25,7 @@ function AddItemToListContainer(id, name, description, color)
 function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
 {
     var newTableRow = document.createElement("tr");
-    SetAttributes(newTableRow, {"style": "text-decoration: line-through;", "class": "danger"});
+    SetAttributes(newTableRow, {"class": "success"});
 
     var newRowId = "";
     newTableRow.id = newRowId.concat("row-", id);

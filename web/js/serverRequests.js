@@ -136,7 +136,7 @@ function ChangeTableLineAttributes(itemId, newChecked, lineThroughAttribute, che
    
     if(checked == "true")
     {
-        SetAttributes(document.getElementById("row-" + itemId), {"class": "danger"});
+        SetAttributes(document.getElementById("row-" + itemId), {"class": "success"});
     }
     else
     {
@@ -199,11 +199,12 @@ function AddNewItemToList()
 }
 
 function DeleteItem(itemId)
-{
+{    
     $.ajax({
         url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
         type: 'DELETE',
-        success: function(result) {
+        success: function(result) 
+        {
         }
     });
 }
