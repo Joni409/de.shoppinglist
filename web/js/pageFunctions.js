@@ -24,7 +24,7 @@ function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erledige
     var newRowId = "";
     newTableRow.id = newRowId.concat("row-", id);
 
-    if (gekauft === '1')
+    if (gekauft == '1')
     {
         newTableRow.setAttribute("style", "text-decoration: line-through;");
     }

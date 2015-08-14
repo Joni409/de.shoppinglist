@@ -143,7 +143,6 @@ function updateDateTimeOnServer(itemId, cellName, jsonName)
 
         var dateToSend = GetDateToSend(element);
 
-        //TODO: nach dem refactoring wieder in ling ändern
         var jsonToSend = '{"' + jsonName + '":"' + dateToSend + '"}';
 
         $.ajax({
@@ -155,6 +154,7 @@ function updateDateTimeOnServer(itemId, cellName, jsonName)
     }
 }
 
+//TODO: nach dem refactoring wieder in ling ändern
 function GetDateToSend(element)
 {
     var value = element.value;
