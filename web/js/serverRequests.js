@@ -85,6 +85,28 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
     }
 }
 
+function updateDateTimeOnServer(itemId, cellName, jsonName)
+{
+    if (window.readyToChange)
+    {
+        var element = document.getElementById(itemId + cellName);
+        
+        var value = element.value;
+        var dateString = value.split(".");
+        
+        var date = new Date(dateString[2], (dateString[1] - 1), dateString[0]);
+                
+        var jsonToSend = '{"' + jsonName + '":"' + date.getTime() + '"}';
+        
+        $.ajax({
+            url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
+            type: 'PUT',
+            data: jsonToSend,
+            contentType: 'application/json'
+        });
+    }
+}
+
 function AddNewItemToList()
 {    
     var listId = window.currentid;
@@ -107,4 +129,3 @@ function AddNewItemToList()
         }
     });
 }
-                

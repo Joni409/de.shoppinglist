@@ -34,15 +34,15 @@
     <a class="btn btn-primary glyphiconButton pull-right" href="#" onclick="LoadIndex()" data-toggle="tooltip" data-placement="top" title="Zurück zur Startseite">
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
     </a>
-    
+
     <span data-toggle="tooltip" data-placement="top" title="Benutzer freigeben">
         <a class="btn btn-primary glyphiconButton pull-right" href="#" data-toggle="modal" data-target="#UserPermissionModal">
             <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
         </a>
     </span>
-    
+
     <a class="btn btn-primary glyphiconButton pull-right" id="copy-description" href="#" onclick="CopyToClipboard(window.currentid)">
-        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
     </a>
 </div>
 
@@ -121,19 +121,19 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="txt-reg-Name">Itemname</label>
+                    <label for="textItemname">Itemname</label>
                     <input type="text" class="form-control" id="textItemname" />
                 </div>
                 <div class="form-group">
-                    <label for="txt-reg-Email">Preis</label>
+                    <label for="textPreis">Preis</label>
                     <input type="text" class="form-control" id="textPreis" />
                 </div>
                 <div class="form-group">
-                    <label for="txt-reg-Password">Fälligkeitsdautm</label>
-                    <input type="text" class="form-control" id="textFälligkeitsdatum" />
+                    <label for="textFälligkeitsdatum">Fälligkeitsdautm</label>
+                    <input id="textFälligkeitsdatum" type="text" class="form-control" onclick='onDateTimePickerClick("textFälligkeitsdatum")'>
                 </div>
                 <div class="form-group">
-                    <label for="txt-reg-Password2">Erlediger</label>
+                    <label for="textErlediger">Erlediger</label>
                     <input type="text" class="form-control" id="textErlediger" />
                 </div>
             </div>
@@ -153,7 +153,7 @@
         else {
             $(this).parent().css("background-color", "");
         }
-    });    
+    });
 </script>
 <script src="js/pageFunctions.js"></script>
 <script src="js/serverRequests.js"></script>
