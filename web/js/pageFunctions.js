@@ -58,7 +58,7 @@ function CreateListElementDateTimePicker(elementDate, elementId, newTableRow)
     var dateToDisplay = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
 
     SetAttributes(newTableInputTypeDateTimePicker, {"type": "text", "id": newId, "onclick": "onDateTimePickerClick(\'" + newId + "\')",
-        "onchange": 'updateDateTimeOnServer(\'' + elementId + '\', \'' + elementDate + '\',\'fälligkeitsdatum\')', "value": dateToDisplay, "readonly": "true"});
+        "onchange": 'updateDateTimeOnServer(\'' + elementId + '\', \'' + elementDate + '\',\'fälligkeitsdatum\')', "value": dateToDisplay, "readonly": "true", "class": "noBorder"});
 
     newTableData.appendChild(newTableInputTypeDateTimePicker);
     newTableRow.appendChild(newTableData);

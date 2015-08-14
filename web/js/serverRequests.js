@@ -145,17 +145,16 @@ function updateDateTimeOnServer(itemId, cellName, jsonName)
         var dateString = value.split(".");
 
         var date = new Date(dateString[2], (dateString[1] - 1), dateString[0]);
+        date.setHours(2);
+        
+        var jsonToSend = '{"' + jsonName + '":"' + date.toISOString() + '"}';
 
-        var jsonToSend = '{"' + jsonName + '":"' + date + '"}';
-
-        alert(jsonToSend);
-
-//        $.ajax({
-//            url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
-//            type: 'PUT',
-//            data: jsonToSend,
-//            contentType: 'application/json'
-//        });
+        $.ajax({
+            url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
+            type: 'PUT',
+            data: jsonToSend,
+            contentType: 'application/json'
+        });
     }
 }
 
