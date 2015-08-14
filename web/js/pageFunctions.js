@@ -1,3 +1,5 @@
+//###### List functions ######
+
 function GenerateRandomColor()
 {
     var colors = ['btn-warning', 'btn-info', 'btn-danger', 'btn-success', 'btn-default', 'btn-primary'];
@@ -18,6 +20,8 @@ function AddItemToListContainer(id, name, description, color)
     $("#ListContainer").append(newListItem);
 }
 
+//###### Itemlist functions ######
+
 function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
 {
     var newTableRow = document.createElement("tr");
@@ -30,11 +34,11 @@ function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erledige
     }
 
     CreateListElementInputTypeCheckbox(gekauft, id, newTableRow);
+    CreateItemCounterElement("5", id, newTableRow, 'anzahl');
     CreateListElement(name, id, newTableRow, 'name');
     CreateListElement(preis, id, newTableRow, 'preis');
     CreateListElementDateTimePicker(Number(einkaufsdatum), id, newTableRow);
     CreateListElement(erlediger, id, newTableRow, 'erlediger');
-//    CreateItemCounterElement("5", id, newTableRow, 'anzahl');
     CreateDeleteButton(id, newTableRow);
 
 
@@ -102,35 +106,33 @@ function CreateListElement(elementName, elementId, newTableRow, jsonName)
     newTableRow.appendChild(newTableData);
 }
 
-//function CreateItemCounterElement(itemCount, elementId, newTableRow, jsonName)
-//{
-//    var newTableData = document.createElement("td");
-//    
-//    var newId = "";
-//    newId = newId.concat(elementId, 'itemCount');
-//    
-//    var newDivInputGroup = document.createElement("div");
-//    SetAttributes(newDivInputGroup, {"class": "input-group"});
-//    
-//    var Button = document.createElement("span");
-//    SetAttributes(newDivInputGroup, {"class": "input-group-btn"});
-//    
-//    var newDivInputGroup = document.createElement("button");
-//    SetAttributes(newDivInputGroup, {"class": "btn btn-default text-center", "onclick": "ChangeCountOfItem('1', '+')"});
-//    
-//    newTableData.appendChild()(newDeleteButton);
-//    newTableRow.appendChild(newTableData);
-//}
+function CreateItemCounterElement(itemCount, elementId, newTableRow, jsonName)
+{
+    var newTableData = document.createElement("td");
+    
+    var newId = "";
+    newId = newId.concat(elementId, 'itemCount');
+    
+    var newDivInputGroup = document.createElement("div");
+    SetAttributes(newDivInputGroup, {"class": "input-group"});
 
-//        <div class="input-group">
-//            <span class="input-group-btn">
-//                <button class="btn btn-default" onclick="ChangeCountOfItem('1', '+')" type="button">+</button>
-//            </span>
-//            <input type="text" class="form-control text-center" id="CountOfItem1" value="1" onblur="ChangeManualCountOfItem('1')">
-//            <span class="input-group-btn">
-//                <button class="btn btn-default" id="CountOfItemMinus1" onclick="ChangeCountOfItem('1', '-')" type="button">-</button>
-//            </span>
-//        </div>
+    var plusButton = document.createElement("button");
+    SetAttributes(plusButton, {"class": "btn btn-default text-center glyphicon glyphicon-plus", "onclick": "ChangeCountOfItem(" + elementId + ", '+')"});
+    
+    var inputItemCounter = document.createElement("input");
+    SetAttributes(inputItemCounter, {"type": "text", "class": "text-center noBorder", "id": newId, "value": itemCount,  "onblur": "ChangeManualCountOfItem(" + elementId + ")"});
+    
+    var minusButton = document.createElement("button");
+    SetAttributes(minusButton, {"class": "btn btn-default text-center glyphicon glyphicon-minus", "id": elementId + "CountOfItemMinus", "onclick": "ChangeCountOfItem(" + elementId + ", '-')"});
+    
+    newDivInputGroup.appendChild(plusButton);
+    newDivInputGroup.appendChild(inputItemCounter);
+    newDivInputGroup.appendChild(minusButton);
+    
+    newTableData.appendChild(newDivInputGroup);
+    
+    newTableRow.appendChild(newTableData);
+}
 
 function CreateDeleteButton(elementId, newTableRow)
 {
@@ -145,6 +147,8 @@ function CreateDeleteButton(elementId, newTableRow)
     newTableData.appendChild(newDeleteButton);
     newTableRow.appendChild(newTableData);
 }
+
+//###### Delete functions ######
 
 var deleteTable = false;
 function ListButtonAction(loadTable, id) {
@@ -167,6 +171,8 @@ function ListButtonAction(loadTable, id) {
         deleteTable = false;
     }
 }
+
+//###### Load or Navigate on site ######
 
 function LoadListTable(id)
 {
@@ -193,4 +199,50 @@ function LoadIndex()
     $("#main-content").load("pages//startsite.html", function() {
         LoadAllServerLists();
     });
+}
+
+//###### ItemCounter functions ######
+function ChangeCountOfItem(itemId, action)
+{
+    var countOfItemInput = $("#" + itemId +  "itemCount");
+    var countOfItemValue = countOfItemInput.val();
+    countOfItemValue = parseInt(countOfItemValue);
+    if(action === '+')
+    {
+        countOfItemValue = countOfItemValue + 1;
+
+        if(countOfItemValue !== 1)
+        {
+            $(itemId + "CountOfItemMinus").attr('disabled', false);
+        }
+    }
+    else if(action === '-')
+    {
+        if(countOfItemValue !== 1)
+        {
+            countOfItemValue = countOfItemValue - 1;
+        }
+        else{
+            $(itemId + "CountOfItemMinus").attr('disabled', true);
+        }
+    }
+
+    countOfItemInput.val(countOfItemValue);
+}
+function ChangeManualCountOfItem(itemId){
+    var countOfItemInput = $("#" + itemId +  "itemCount");
+    var countOfItemValue = countOfItemInput.val();
+    countOfItemValue = parseInt(countOfItemValue);
+    if(countOfItemValue >= 1)
+    {
+        if(countOfItemValue === 1){
+            $(itemId + "CountOfItemMinus").attr('disabled', false);
+        }
+        else{
+            $(itemId + "CountOfItemMinus").attr('disabled', true);        
+        }
+    }
+    else{
+        countOfItemInput.val(1);
+    }
 }
