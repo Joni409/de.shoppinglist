@@ -25,12 +25,14 @@ function AddItemToListContainer(id, name, description, color)
 function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
 {
     var newTableRow = document.createElement("tr");
+    SetAttributes(newTableRow, {"style": "text-decoration: line-through;", "class": "danger"});
+
     var newRowId = "";
     newTableRow.id = newRowId.concat("row-", id);
 
     if (gekauft == '1')
     {
-        newTableRow.setAttribute("style", "text-decoration: line-through;");
+        SetAttributes(newTableRow, {"style": "text-decoration: line-through;", "class": "default"});
     }
 
     CreateListElementInputTypeCheckbox(gekauft, id, newTableRow);
@@ -64,7 +66,7 @@ function CreateListElementDateTimePicker(elementDate, elementId, newTableRow)
     var dateToDisplay = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
 
     SetAttributes(newTableInputTypeDateTimePicker, {"type": "text", "id": newId, "onclick": "onDateTimePickerClick(\'" + newId + "\')",
-        "onchange": 'updateDateTimeOnServer(\'' + elementId + '\', \'' + elementDate + '\',\'fälligkeitsdatum\')', "value": dateToDisplay, "readonly": "true", "class": "noBorder"});
+        "onchange": 'updateDateTimeOnServer(\'' + elementId + '\', \'' + elementDate + '\',\'fälligkeitsdatum\'), CheckItemDate()', "value": dateToDisplay, "readonly": "true", "class": "noBorder"});
 
     newTableData.appendChild(newTableInputTypeDateTimePicker);
     newTableRow.appendChild(newTableData);
@@ -142,7 +144,7 @@ function CreateDeleteButton(elementId, newTableRow)
     newId = newId.concat(elementId, "deleteButton");
     
     var newDeleteButton = document.createElement("span");
-    SetAttributes(newDeleteButton, {"class": "glyphicon glyphicon-remove-circle deleteList", "id": newId});
+    SetAttributes(newDeleteButton, {"class": "glyphicon glyphicon-remove-circle deleteList", "id": newId, "onclick": 'DeleteItem(\'' + elementId + '\')'});
     
     newTableData.appendChild(newDeleteButton);
     newTableRow.appendChild(newTableData);
