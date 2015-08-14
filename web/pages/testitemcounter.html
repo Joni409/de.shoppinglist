@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Einkaufsliste</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="../css/bootstrap.min.css" type="text/css" rel="stylesheet">
+        <link href="../css/myStyles.css" type="text/css" rel="stylesheet">
+    </head>
+    
+    <body>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" onclick="ChangeCountOfItem('1', '+')" type="button">+</button>
+            </span>
+            <input type="text" class="form-control text-center" id="CountOfItem1" value="1" onblur="ChangeManualCountOfItem('1')">
+            <span class="input-group-btn">
+                <button class="btn btn-default" id="CountOfItemMinus1" onclick="ChangeCountOfItem('1', '-')" type="button">-</button>
+            </span>
+        </div><!-- /input-group -->
+        
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/pageFunctions.js"></script>
+        <script src="../js/serverRequests.js"></script>
+        <script src="../js/events.js"></script>
+        <script>
+            function ChangeCountOfItem(itemId, action)
+            {
+                var countOfItemInput = $("#CountOfItem" + itemId);
+                var countOfItemValue = countOfItemInput.val();
+                countOfItemValue = parseInt(countOfItemValue);
+                if(action === '+')
+                {
+                    countOfItemValue = countOfItemValue + 1;
+                                        
+                    if(countOfItemValue !== 1)
+                    {
+                        $("CountOfItemMinus" + itemId).attr('disabled', false);
+                    }
+                }
+                else if(action === '-')
+                {
+                    if(countOfItemValue !== 1)
+                    {
+                        countOfItemValue = countOfItemValue - 1;
+                    }
+                    else{
+                        $("CountOfItemMinus" + itemId).attr('disabled', true);
+                    }
+                }
+                
+                countOfItemInput.val(countOfItemValue);
+            }
+            function ChangeManualCountOfItem(itemId){
+                var countOfItemInput = $("#CountOfItem" + itemId);
+                var countOfItemValue = countOfItemInput.val();
+                countOfItemValue = parseInt(countOfItemValue);
+                if(countOfItemValue >= 1)
+                {
+                    if(countOfItemValue === 1){
+                        $("CountOfItemMinus" + itemId).attr('disabled', false);
+                    }
+                    else{
+                        $("CountOfItemMinus" + itemId).attr('disabled', true);        
+                    }
+                }
+                else{
+                    countOfItemInput.val(1);
+                }
+            }
+            
+            
+        </script>
+    </body>
+</html>
