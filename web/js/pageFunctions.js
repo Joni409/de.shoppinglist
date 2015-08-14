@@ -21,7 +21,15 @@ function AddItemToListContainer(id, name, description, color)
 function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
 {
     var newTableRow = document.createElement("tr");
-    CreateListElementInputTypeCheckbox(gekauft, id, newTableRow)
+    var newRowId = "";
+    newTableRow.id = newRowId.concat("row-", id);
+
+    if (gekauft == '1')
+    {
+        newTableRow.setAttribute("style", "text-decoration: line-through;");
+    }
+
+    CreateListElementInputTypeCheckbox(gekauft, id, newTableRow);
     CreateListElement(name, id, newTableRow, 'name');
     CreateListElement(preis, id, newTableRow, 'preis');
     CreateListElementDateTimePicker(Number(einkaufsdatum), id, newTableRow);
@@ -50,7 +58,7 @@ function CreateListElementDateTimePicker(elementDate, elementId, newTableRow)
     var dateToDisplay = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
 
     SetAttributes(newTableInputTypeDateTimePicker, {"type": "text", "id": newId, "onclick": "onDateTimePickerClick(\'" + newId + "\')",
-        "onchange": 'updateDateTimeOnServer(\'' + elementId + '\', \'' + elementDate + '\',\'fälligkeitsdatum\')', "value": dateToDisplay, "readonly" : "true"});
+        "onchange": 'updateDateTimeOnServer(\'' + elementId + '\', \'' + elementDate + '\',\'fälligkeitsdatum\')', "value": dateToDisplay, "readonly": "true"});
 
     newTableData.appendChild(newTableInputTypeDateTimePicker);
     newTableRow.appendChild(newTableData);
@@ -67,7 +75,7 @@ function CreateListElementInputTypeCheckbox(checked, elementId, newTableRow)
     var newId = "";
     newTableInputType.setAttribute('contenteditable', 'true');
     newTableInputType.id = newId.concat(elementId, checked);
-    newTableInputType.setAttribute('onchange', 'UpdateListDataOnServer(\'' + elementId + "\', \'" + checked + '\', \' gekauft \')');
+    newTableInputType.setAttribute('onchange', 'UpdateListDataOnServer(\'' + elementId + "\', \'" + checked + '\', \'gekauft\')');
 
 
     newTableData.appendChild(newTableInputType);
@@ -113,8 +121,8 @@ function ListButtonAction(loadTable, id) {
 function LoadListTable(id)
 {
     window.currentid = id;
-    $("#MainContainer").empty();
-    $("#MainContainer").load("pages/itemList.html", function() {
+    $("#main-content").empty();
+    $("#main-content").load("pages/itemList.html", function() {
         LoadSpecificServerList(id);
     });
 }
@@ -124,15 +132,15 @@ function ListDelete(id)
     //Löschen
     $.ajax({
         url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/' + id,
-        type: "DELETE",
+        type: "DELETE"
     });
     LoadAllServerLists();
 }
 
 function LoadIndex()
 {
-    $("#MainContainer").empty();
-    $("#MainContainer").load("index.html #MainContainer > *", function() {
+    $("#main-content").empty();
+    $("#main-content").load("pages//startsite.html", function() {
         LoadAllServerLists();
     });
 }

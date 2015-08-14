@@ -28,10 +28,6 @@ $("#AddItemButton").click(function()
         choosedColor = $('input[name=optradio]:checked', '#itemColor').val();
     }
     
-    //Neues Element an den Server senden und dann neu laden
-    alert(name);
-    alert(description);
-    alert(choosedColor);
     CreateNewServerList(name, description, choosedColor);
 });
 
@@ -41,7 +37,10 @@ function CreateNewServerList(name, beschreibung, color)
         url: "http://localhost:8080/de.datev.shoppinglist/api/lists/",
         type: "POST",
         data: "{\"name\":\"" + name + "\",\"beschreibung\":\"" + beschreibung + "\",\"color\":\"" + color + "\"}",
-        contentType: "application/json"
+        contentType: "application/json",
+        success:function() {
+            LoadIndex();
+        }
     });
 }
 
