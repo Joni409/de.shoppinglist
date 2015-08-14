@@ -143,4 +143,27 @@ public class ItemControllerTest
         assertEquals(expResult, result);
     }
     
+    @Test
+    public void testDeleteItem()
+    {
+        System.out.println("deleteItem");
+        String id = "999999";
+        
+        ApplicationConfiguration.Sql.insert("item", new String[]
+        {
+            id,
+            "JUnit_testDeleteItem",
+            "1",
+            "2014-08-10 10:11:55",
+            "6.66",
+            "0",
+            "1"
+        });
+        
+        boolean expResult = true;
+        boolean result = ItemController.deleteItem(id);
+        
+        assertEquals(expResult, result);
+    }
+    
 }
