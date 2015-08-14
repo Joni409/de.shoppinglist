@@ -133,6 +133,15 @@ function ChangeTableLineAttributes(itemId, newChecked, lineThroughAttribute, che
     });
     tableLineCheckbox.attr('id', (itemId + newChecked));
     $("#row-" + itemId).css("text-decoration", lineThroughAttribute);
+   
+    if(checked == "true")
+    {
+        SetAttributes(document.getElementById("row-" + itemId), {"class": "danger"});
+    }
+    else
+    {
+        SetAttributes(document.getElementById("row-" + itemId), {"class": "default"});
+    }
 }
 
 function updateDateTimeOnServer(itemId, cellName, jsonName)
@@ -163,29 +172,6 @@ function GetDateToSend(element)
     var date = new Date(dateString[2], (dateString[1] - 1), dateString[0]);
     date.setHours(2);
     return date.toISOString();
-}
-
-function LineThroughTableLine(itemId, throughLine) 
-{
-    var tableLineCheckbox = $("#" + itemId + throughLine);
-
-    if (throughLine == "true") {
-        tableLineCheckbox.off();
-        tableLineCheckbox.change(function() {
-            UpdateListDataOnServer(itemId, 'false', 'gekauft');
-        });
-        tableLineCheckbox.attr('id', (itemId + 'false'));
-        $("#row-" + itemId).css("text-decoration", "");
-    }
-
-    if (throughLine == "false") {
-        tableLineCheckbox.off();
-        tableLineCheckbox.change(function() {
-            UpdateListDataOnServer(itemId, 'true', 'gekauft');
-        });
-        tableLineCheckbox.attr('id', (itemId + 'true'));
-        $("#row-" + itemId).css("text-decoration", "line-through");
-    }
 }
 
 function AddNewItemToList()

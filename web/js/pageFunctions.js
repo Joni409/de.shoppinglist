@@ -25,12 +25,14 @@ function AddItemToListContainer(id, name, description, color)
 function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erlediger)
 {
     var newTableRow = document.createElement("tr");
+    SetAttributes(newTableRow, {"style": "text-decoration: line-through;", "class": "danger"});
+
     var newRowId = "";
     newTableRow.id = newRowId.concat("row-", id);
 
     if (gekauft == '1')
     {
-        newTableRow.setAttribute("style", "text-decoration: line-through;");
+        SetAttributes(newTableRow, {"style": "text-decoration: line-through;", "class": "default"});
     }
 
     CreateListElementInputTypeCheckbox(gekauft, id, newTableRow);
