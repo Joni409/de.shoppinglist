@@ -144,7 +144,7 @@ function updateDateTimeOnServer(itemId, cellName, jsonName)
         var dateToSend = GetDateToSend(element);
 
         var jsonToSend = '{"' + jsonName + '":"' + dateToSend + '"}';
-
+        
         $.ajax({
             url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
             type: 'PUT',
@@ -165,7 +165,8 @@ function GetDateToSend(element)
     return date.toISOString();
 }
 
-function LineThroughTableLine(itemId, throughLine) {
+function LineThroughTableLine(itemId, throughLine) 
+{
     var tableLineCheckbox = $("#" + itemId + throughLine);
 
     if (throughLine == "true") {
@@ -206,6 +207,17 @@ function AddNewItemToList()
         success: function(result) {
             LoadListTable(listId);
             $(".modal-backdrop").hide();
+            CheckItemDate();
+        }
+    });
+}
+
+function DeleteItem(itemId)
+{
+    $.ajax({
+        url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
+        type: 'DELETE',
+        success: function(result) {
         }
     });
 }
