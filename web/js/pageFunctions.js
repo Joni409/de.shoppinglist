@@ -39,10 +39,9 @@ function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erledige
     CreateItemCounterElement("5", id, newTableRow, 'anzahl');
     CreateListElement(name, id, newTableRow, 'name');
     CreateListElement(preis, id, newTableRow, 'preis');
-    CreateListElementDateTimePicker(Number(einkaufsdatum), id, newTableRow);
     CreateListElement(erlediger, id, newTableRow, 'erlediger');
+    CreateListElementDateTimePicker(Number(einkaufsdatum), id, newTableRow);
     CreateDeleteButton(id, newTableRow);
-
 
     document.getElementById("ElementsOfListTable").appendChild(newTableRow);
 }
@@ -119,13 +118,13 @@ function CreateItemCounterElement(itemCount, elementId, newTableRow, jsonName)
     SetAttributes(newDivInputGroup, {"class": "input-group"});
 
     var plusButton = document.createElement("button");
-    SetAttributes(plusButton, {"class": "btn btn-default text-center glyphicon glyphicon-plus", "onclick": "ChangeCountOfItem(" + elementId + ", '+')"});
+    SetAttributes(plusButton, {"class": "btn-itemCount text-center glyphicon glyphicon-plus", "onclick": "ChangeCountOfItem(" + elementId + ", '+')"});
     
     var inputItemCounter = document.createElement("input");
-    SetAttributes(inputItemCounter, {"type": "text", "class": "text-center noBorder", "id": newId, "value": itemCount,  "onblur": "ChangeManualCountOfItem(" + elementId + ")"});
+    SetAttributes(inputItemCounter, {"type": "text", "class": "text-center input-items", "id": newId, "value": itemCount,  "onblur": "ChangeManualCountOfItem(" + elementId + ")"});
     
     var minusButton = document.createElement("button");
-    SetAttributes(minusButton, {"class": "btn btn-default text-center glyphicon glyphicon-minus", "id": elementId + "CountOfItemMinus", "onclick": "ChangeCountOfItem(" + elementId + ", '-')"});
+    SetAttributes(minusButton, {"class": "btn-itemCount text-center glyphicon glyphicon-minus", "id": elementId + "CountOfItemMinus", "onclick": "ChangeCountOfItem(" + elementId + ", '-')"});
     
     newDivInputGroup.appendChild(plusButton);
     newDivInputGroup.appendChild(inputItemCounter);

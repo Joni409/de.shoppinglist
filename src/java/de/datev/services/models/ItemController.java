@@ -111,4 +111,9 @@ public class ItemController {
     public static boolean createItem(String name, String einkaufsdatum, String preis, String gekauft, String erlediger, String id) {
         return Sql.insert("item", new String[]{"", name, id, einkaufsdatum, preis, gekauft, erlediger});
     }
+
+    public static boolean deleteItem(String id)
+    {
+        return Sql.delete("item", "item_id_pk", id);
+    }
 }
