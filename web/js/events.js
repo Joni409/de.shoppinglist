@@ -4,7 +4,7 @@ $("#ColorRandom").change(function()
     $("#ColorSelection").prop('disabled', checked);
 });
 
-$("#AddItemButton").click(function()
+function AddNewItemToListOverview()
 {
     //Controls auslesen
     var name = $("#NewItemName").val();
@@ -29,7 +29,7 @@ $("#AddItemButton").click(function()
     }
     
     CreateNewServerList(name, description, choosedColor);
-});
+}
 
 function CreateNewServerList(name, beschreibung, color)
 {
@@ -40,6 +40,7 @@ function CreateNewServerList(name, beschreibung, color)
         contentType: "application/json",
         success:function() {
             LoadIndex();
+            $(".modal-backdrop").hide();
         }
     });
 }
