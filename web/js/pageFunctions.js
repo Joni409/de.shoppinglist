@@ -34,6 +34,9 @@ function AddElementToListTable(id, name, preis, gekauft, einkaufsdatum, erledige
     CreateListElement(preis, id, newTableRow, 'preis');
     CreateListElementDateTimePicker(Number(einkaufsdatum), id, newTableRow);
     CreateListElement(erlediger, id, newTableRow, 'erlediger');
+//    CreateItemCounterElement("5", id, newTableRow, 'anzahl');
+    CreateDeleteButton(id, newTableRow);
+
 
     document.getElementById("ElementsOfListTable").appendChild(newTableRow);
 }
@@ -96,6 +99,50 @@ function CreateListElement(elementName, elementId, newTableRow, jsonName)
     newTableData.id = newId.concat(elementId, elementName);
 
     newTableData.appendChild(newTableText);
+    newTableRow.appendChild(newTableData);
+}
+
+//function CreateItemCounterElement(itemCount, elementId, newTableRow, jsonName)
+//{
+//    var newTableData = document.createElement("td");
+//    
+//    var newId = "";
+//    newId = newId.concat(elementId, 'itemCount');
+//    
+//    var newDivInputGroup = document.createElement("div");
+//    SetAttributes(newDivInputGroup, {"class": "input-group"});
+//    
+//    var Button = document.createElement("span");
+//    SetAttributes(newDivInputGroup, {"class": "input-group-btn"});
+//    
+//    var newDivInputGroup = document.createElement("button");
+//    SetAttributes(newDivInputGroup, {"class": "btn btn-default text-center", "onclick": "ChangeCountOfItem('1', '+')"});
+//    
+//    newTableData.appendChild()(newDeleteButton);
+//    newTableRow.appendChild(newTableData);
+//}
+
+//        <div class="input-group">
+//            <span class="input-group-btn">
+//                <button class="btn btn-default" onclick="ChangeCountOfItem('1', '+')" type="button">+</button>
+//            </span>
+//            <input type="text" class="form-control text-center" id="CountOfItem1" value="1" onblur="ChangeManualCountOfItem('1')">
+//            <span class="input-group-btn">
+//                <button class="btn btn-default" id="CountOfItemMinus1" onclick="ChangeCountOfItem('1', '-')" type="button">-</button>
+//            </span>
+//        </div>
+
+function CreateDeleteButton(elementId, newTableRow)
+{
+    var newTableData = document.createElement("td");
+    
+    var newId = "";
+    newId = newId.concat(elementId, "deleteButton");
+    
+    var newDeleteButton = document.createElement("span");
+    SetAttributes(newDeleteButton, {"class": "glyphicon glyphicon-remove-circle deleteList", "id": newId});
+    
+    newTableData.appendChild(newDeleteButton);
     newTableRow.appendChild(newTableData);
 }
 
