@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -60,7 +61,22 @@ public class ItemBoundary {
         
         boolean successful = ItemController.updateItem(updateData, id);
         
-         if(successful)
+        if(successful)
+        {
+            return Response.status(Response.Status.OK).build();
+        }
+        else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
+    @DELETE
+    public Response DeleteItem(@PathParam("ItemID") String id)
+    {
+        boolean successful = ItemController.deleteItem(id);
+        
+        if(successful)
         {
             return Response.status(Response.Status.OK).build();
         }
