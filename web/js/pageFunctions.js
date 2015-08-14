@@ -80,6 +80,7 @@ function CreateListElementInputTypeCheckbox(checked, elementId, newTableRow)
 
     var newId = "";
     newTableInputType.setAttribute('contenteditable', 'true');
+    newTableInputType.setAttribute('style', 'width: 20px; height: 20px');
     newTableInputType.id = newId.concat(elementId, checked);
     newTableInputType.setAttribute('onchange', 'UpdateListDataOnServer(\'' + elementId + "\', \'" + checked + '\', \'gekauft\')');
 
