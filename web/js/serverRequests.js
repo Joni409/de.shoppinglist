@@ -146,21 +146,16 @@ function updateDateTimeOnServer(itemId, cellName, jsonName)
 
         var date = new Date(dateString[2], (dateString[1] - 1), dateString[0]);
 
-        var jsonToSend = '{"' + jsonName + '":"' + date.getTime() + '"}';
+        var jsonToSend = '{"' + jsonName + '":"' + date + '"}';
 
-        $.ajax({
-            url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
-            type: 'PUT',
-            data: jsonToSend,
-            contentType: 'application/json',
-            success: function() {
-                CheckItemDate();
-                if (name === "gekauft")
-                {
-                    LineThroughTableLine(itemId, cellName);
-                }
-            }
-        });
+        alert(jsonToSend);
+
+//        $.ajax({
+//            url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
+//            type: 'PUT',
+//            data: jsonToSend,
+//            contentType: 'application/json'
+//        });
     }
 }
 
