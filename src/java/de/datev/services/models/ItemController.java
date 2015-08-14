@@ -21,10 +21,12 @@ public class ItemController {
         List<ItemModel> result = new ArrayList<ItemModel>();
         
         try {
-            ResultSet rs = Sql.select("item");
-            while (rs.next()) {
-                ItemModel currentItem = Helper.FillItemModel(rs);
-                result.add(currentItem);
+            List<HashMap<String, String>> resultItemRows = SQLHelper.select("item");
+            
+            for(HashMap<String, String> currentItemRow : resultItemRows)
+            {
+                ItemModel currentItemModel = SQLHelper.FillItemModel(currentItemRow);
+                result.add(currentItemModel);
             }
         } catch (SQLException e) {
 
@@ -37,10 +39,12 @@ public class ItemController {
         List<ItemModel> result = new ArrayList<ItemModel>();
         
         try {
-            ResultSet rs = Sql.select("item", "item_shoppinglist_fk", listId);
-            while (rs.next()) {
-                ItemModel currentItem = Helper.FillItemModel(rs);
-                result.add(currentItem);
+            List<HashMap<String, String>> resultItemRows = SQLHelper.select("item", "item_shoppinglist_fk", listId);
+            
+            for(HashMap<String, String> currentItemRow : resultItemRows)
+            {
+                ItemModel currentItemModel = SQLHelper.FillItemModel(currentItemRow);
+                result.add(currentItemModel);
             }
         } catch (SQLException e) {
 
@@ -49,20 +53,19 @@ public class ItemController {
     }
     
     public static ItemModel getItem(String itemId) {
+        
         ItemModel result = null;
         
         try {
-            ResultSet rs = Sql.select("item", "item_id_pk", itemId);
-            while (rs.next()) {
-                ItemModel currentItem = Helper.FillItemModel(rs);
-                result = currentItem;
+            List<HashMap<String, String>> resultItemRows = SQLHelper.select("item", "item_id_pk", itemId);
+            
+            for(HashMap<String, String> currentItemRow : resultItemRows)
+            {
+                result = SQLHelper.FillItemModel(currentItemRow);
             }
         } catch (SQLException e) {
 
         }
-        
-        
-        
         return result;
     }
     
@@ -105,7 +108,7 @@ public class ItemController {
         
     }
 
-    public static void createItem(String name, String einkaufsdatum, String preis, String gekauft, String erlediger, String id) {
-        Sql.insert("item", new String[]{"", name, id, einkaufsdatum, preis, gekauft, erlediger});
+    public static boolean createItem(String name, String einkaufsdatum, String preis, String gekauft, String erlediger, String id) {
+        return Sql.insert("item", new String[]{"", name, id, einkaufsdatum, preis, gekauft, erlediger});
     }
 }

@@ -27,7 +27,6 @@ public class ItemCollectionBoundary {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getItems(@PathParam("ListenID") String id, @QueryParam("function") String function)
     {
-        
         if(function != null && function.equals("checkNotifications"))
         {
             List<ItemModel> allListResult = ItemController.getAllItems();

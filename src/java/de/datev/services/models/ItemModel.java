@@ -55,13 +55,13 @@ public class ItemModel {
         this.Listenname = listenname;
     }
     
-    private String Fälligkeitsdatum;
+    private long Fälligkeitsdatum;
 
-    public String getFälligkeitsdatum() {
+    public long getFälligkeitsdatum() {
         return Fälligkeitsdatum;
     }
     
-    public void setFälligkeitsdatum(String fälligkeitsdatum){
+    public void setFälligkeitsdatum(long fälligkeitsdatum){
         this.Fälligkeitsdatum = fälligkeitsdatum;
     }
     
@@ -105,7 +105,7 @@ public class ItemModel {
         this.Notification = notification;
     }
     
-    public ItemModel(int itemId, String itemName, int listenId, String listenName, String fälligkeitsdatum, double preis, boolean gekauft, String käufer, boolean notification){
+    public ItemModel(int itemId, String itemName, int listenId, String listenName, long fälligkeitsdatum, double preis, boolean gekauft, String käufer, boolean notification){
         this.ItemId = itemId;
         this.ItemName = itemName;
         this.ListenId = listenId;
