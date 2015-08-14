@@ -91,6 +91,11 @@ function CreateListElement(elementName, elementId, newTableRow, jsonName)
     newTableData.setAttribute('contenteditable', 'true');
     newTableData.setAttribute('onblur', 'UpdateListDataOnServer(\'' + elementId + "\', \'" + elementName + '\'' + "," + '\'' + jsonName + '\')');
     newTableData.id = newId.concat(elementId, elementName);
+    
+    if (jsonName == "erlediger") 
+    {
+        newTableData.setAttribute("contenteditable", "false");
+    }
 
     newTableData.appendChild(newTableText);
     newTableRow.appendChild(newTableData);
