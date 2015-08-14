@@ -110,11 +110,11 @@ function UpdateListDataOnServer(itemId, cellName, jsonName)
     }
 }
 
-function LineThroughTableLine(itemId, checked) 
+function LineThroughTableLine(itemId, checked)
 {
-    if (checked === "true") 
+    if (checked === "true")
     {
-        ChangeTableLineAttributes(itemId, 'false', "" , checked);
+        ChangeTableLineAttributes(itemId, 'false', "", checked);
     }
     else
     {
@@ -125,14 +125,14 @@ function LineThroughTableLine(itemId, checked)
 function ChangeTableLineAttributes(itemId, newChecked, lineThroughAttribute, checked)
 {
     var tableLineCheckbox = $("#" + itemId + checked);
-    
+
     tableLineCheckbox.off();
-        tableLineCheckbox.change(function() 
-        {
-            UpdateListDataOnServer(itemId, newChecked, 'gekauft');
-        });
-        tableLineCheckbox.attr('id', (itemId + newChecked));
-        $("#row-" + itemId).css("text-decoration", lineThroughAttribute);
+    tableLineCheckbox.change(function()
+    {
+        UpdateListDataOnServer(itemId, newChecked, 'gekauft');
+    });
+    tableLineCheckbox.attr('id', (itemId + newChecked));
+    $("#row-" + itemId).css("text-decoration", lineThroughAttribute);
 }
 
 function updateDateTimeOnServer(itemId, cellName, jsonName)
@@ -141,14 +141,10 @@ function updateDateTimeOnServer(itemId, cellName, jsonName)
     {
         var element = document.getElementById(itemId + cellName);
 
-        var value = element.value;
-        var dateString = value.split(".");
+        var dateToSend = GetDateToSend(element);
 
-        var date = new Date(dateString[2], (dateString[1] - 1), dateString[0]);
-        date.setHours(2);
-        
         //TODO: nach dem refactoring wieder in ling ändern
-        var jsonToSend = '{"' + jsonName + '":"' + date.toISOString() + '"}';
+        var jsonToSend = '{"' + jsonName + '":"' + dateToSend + '"}';
 
         $.ajax({
             url: 'http://localhost:8080/de.datev.shoppinglist/api/lists/1/items/' + itemId,
@@ -159,24 +155,34 @@ function updateDateTimeOnServer(itemId, cellName, jsonName)
     }
 }
 
-function LineThroughTableLine(itemId, throughLine){
+function GetDateToSend(element)
+{
+    var value = element.value;
+    var dateString = value.split(".");
+
+    var date = new Date(dateString[2], (dateString[1] - 1), dateString[0]);
+    date.setHours(2);
+    return date.toISOString();
+}
+
+function LineThroughTableLine(itemId, throughLine) {
     var tableLineCheckbox = $("#" + itemId + throughLine);
-    
+
     if (throughLine == "true") {
         tableLineCheckbox.off();
         tableLineCheckbox.change(function() {
             UpdateListDataOnServer(itemId, 'false', 'gekauft');
         });
-        tableLineCheckbox.attr('id', (itemId +'false'));
+        tableLineCheckbox.attr('id', (itemId + 'false'));
         $("#row-" + itemId).css("text-decoration", "");
     }
-    
-    if(throughLine == "false"){
+
+    if (throughLine == "false") {
         tableLineCheckbox.off();
         tableLineCheckbox.change(function() {
             UpdateListDataOnServer(itemId, 'true', 'gekauft');
         });
-        tableLineCheckbox.attr('id', (itemId +'true'));
+        tableLineCheckbox.attr('id', (itemId + 'true'));
         $("#row-" + itemId).css("text-decoration", "line-through");
     }
 }
@@ -187,7 +193,7 @@ function AddNewItemToList()
 
     var itemname = document.getElementById("textItemname").value;
     var preis = document.getElementById("textPreis").value;
-    var fälligkeitsdatum = document.getElementById("textFälligkeitsdatum").value;
+    var fälligkeitsdatum = GetDateToSend(document.getElementById("textFälligkeitsdatum"));
     var erlediger = document.getElementById("textErlediger").value;
 
     var jsonToSend = '{"name" : "' + itemname + '","preis" : "' + preis + '","fälligkeitsdatum" : "' + fälligkeitsdatum + '","erlediger" : "' + erlediger + '"}';
